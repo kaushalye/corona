@@ -1,26 +1,26 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Contacts from './components/contacts';
+import Stats from './components/stats';
 
 class App extends Component {
 
   state = {
-    contacts: []
+    countries: []
   }
 
   componentDidMount() {
-    fetch('http://jsonplaceholder.typicode.com/users')
+    fetch( 'https://corona.lmao.ninja/countries?sort=country')
     .then(res => res.json())
     .then((data) => {
-      this.setState({ contacts: data })
+      this.setState({ countries: data })
     })
     .catch(console.log)
   }
 
   render() {
     return (
-      <Contacts contacts={this.state.contacts} />
+      <Stats countries={this.state.countries} />
     );
   }
 }
