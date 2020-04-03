@@ -29,15 +29,17 @@ class App extends Component {
     return (
       <Router>
       <div>
-        <nav className="navbar sticky-top navbar-light bg-light">
-          <ul>
+        <nav className="nav nav-tabs justify-content-center">
+        <a class="nav-link" href="/stats">Stats</a>
+        <a class="nav-link" href="/map">Map</a>
+          {/* <ul>
             <li>
               <Link to="/stats">Stats</Link>
             </li>
             <li>
               <Link to="/map">Map</Link>
             </li>
-          </ul>
+          </ul> */}
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
