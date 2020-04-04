@@ -30,20 +30,20 @@ class App extends Component {
       <Router>
       <div>
         <nav className="nav nnav nav-tabs justify-content-center">
-          <a className="nav-link" href="/stats">Stats</a>
-          <a className="nav-link" href="/map">Map</a>
+          <a className="nav-link" href="/corona/stats">Stats</a>
+          <a className="nav-link" href="/corona/map">Map</a>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/stats">
+          <Route path="/corona/stats">
             <Stats countries={this.state.countries} />
           </Route>
-          <Route path="/map">
+          <Route path="/corona/map">
             <WorldCoronaMap />
           </Route>
-          <Redirect from="/" to="/stats" />
+          <Redirect from="/corona" to="/corona/stats" />
         </Switch>
       </div>
     </Router>
