@@ -7,7 +7,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect
 } from "react-router-dom";
 
 class App extends Component {
@@ -29,17 +29,9 @@ class App extends Component {
     return (
       <Router>
       <div>
-        <nav className="nav nav-tabs justify-content-center">
-        <a class="nav-link" href="/stats">Stats</a>
-        <a class="nav-link" href="/map">Map</a>
-          {/* <ul>
-            <li>
-              <Link to="/stats">Stats</Link>
-            </li>
-            <li>
-              <Link to="/map">Map</Link>
-            </li>
-          </ul> */}
+        <nav className="nav nnav nav-tabs justify-content-center">
+          <a className="nav-link" href="/stats">Stats</a>
+          <a className="nav-link" href="/map">Map</a>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -51,6 +43,7 @@ class App extends Component {
           <Route path="/map">
             <WorldCoronaMap />
           </Route>
+          <Redirect from="/" to="/stats" />
         </Switch>
       </div>
     </Router>
