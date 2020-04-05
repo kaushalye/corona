@@ -17,11 +17,13 @@ class CountryOverview extends Component {
     return (
       <Container className="full-height">
         <Container>
-          <Row float="center">
-            <Col> <InfoCard title="Confirmed" text="10000"/> </Col>
-            <Col> <InfoCard title="Deaths" text="20"/> </Col>
-            <Col> <InfoCard title="Recovered" text="5000"/> </Col>
-          </Row>
+          { this.props.country.map((c) => {
+            return <Row float="center">
+                    <Col> <InfoCard title="Confirmed" text={c.cases}/> </Col>
+                    <Col> <InfoCard title="Deaths" text={c.deaths} /> </Col>
+                    <Col> <InfoCard title="Recovered" text={c.recovered} /> </Col>
+                  </Row>
+          })}
        </Container>
        <Container>
           <Row float="center">

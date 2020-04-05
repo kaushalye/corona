@@ -1,7 +1,8 @@
 import React from 'react'
 // import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import BootstrapTable from 'react-bootstrap-table-next';
-// import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+
+import { Container, Row, Col, Form} from 'react-bootstrap';
 
 const columns = [
   {
@@ -53,13 +54,13 @@ const defaultSorted = [{
 
 const World = ({countries}) => {
   return (
-    <div>
+    <Container >
       <BootstrapTable keyField='country' data={ countries } columns={ columns }  
             striped={true}
             condensed={true}
             hover={true}
             defaultSorted= {defaultSorted}/>
-    </div>
+    </Container>
   )
 };
 

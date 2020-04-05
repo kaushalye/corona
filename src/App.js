@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import World from './components/world';
 import CountryOverview from './components/country_overview';
-import { Container, Nav} from 'react-bootstrap';
+import { Container, Nav, Navbar} from 'react-bootstrap';
 import {
   BrowserRouter as Router,
   Switch,
@@ -55,24 +55,19 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <Container fluid className="full-height">
-        <Nav className="justify-content-center" variant="pills" >
-          <Nav.Item>
-            <Nav.Link eventKey="1" href="/corona/world">World</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="2" href="/corona/aus">Australia</Nav.Link>
-          </Nav.Item>
-          {/* <a className="nav-link" href="/corona/world">World</a>
-          <a className="nav-link" href="/corona/aus">Australia</a> */}
+      <Container className="full-height">
+      <Navbar className="justify-content-center" bg="primary" variant="dark" >
+        <Nav  >
+          <Nav.Link eventKey="1" href="/corona/world">World</Nav.Link>
+          <Nav.Link eventKey="2" href="/corona/aus">Australia</Nav.Link>
         </Nav>
+      </Navbar>
         <Switch>
           <Route path="/corona/world">
             <World countries={this.state.countries} />
           </Route>
-          <Route path="/corona/aus">
-            {/* <Country  regions={this.state.regions.filter(r => r.iso2 === 'AU')} /> */}
-            <CountryOverview  regions={this.state.regions.filter(r => r.iso2 === 'AU')}/>
+          <Route path="/corona/aus"> 
+            <CountryOverview country={this.state.countries.filter(c => c.countryInfo.iso2==='AU')} regions={this.state.regions.filter(r => r.iso2 === 'AU')}/>
           </Route>
           <Redirect from="/corona" to="/corona/world" />
           <Redirect from="/" to="/corona/world" />
