@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, Col} from 'react-bootstrap';
+import {Jumbotron, Container, Card, Col} from 'react-bootstrap';
 class InfoCard extends Component {
 
   constructor(props) {
@@ -8,14 +8,11 @@ class InfoCard extends Component {
 
   render() {
     return (
-      <Card style={{ width: '18rem' }}>
-        <Card.Body>
-          <Card.Header align="center">{this.props.title}</Card.Header>
-          <Card.Text>
-            <p align="center">{this.props.text}</p>
-          </Card.Text>
-        </Card.Body>
-      </Card>
+      <Jumbotron className={this.props.class} >
+        <h4>{this.props.title}</h4>
+        <p>{this.props.text}</p>
+      </Jumbotron>
+
     );
   }
 }

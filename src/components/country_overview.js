@@ -19,9 +19,9 @@ class CountryOverview extends Component {
         <Container>
           { this.props.country.map((c) => {
             return <Row float="center">
-                    <Col> <InfoCard title="Confirmed" text={c.cases}/> </Col>
-                    <Col> <InfoCard title="Deaths" text={c.deaths} /> </Col>
-                    <Col> <InfoCard title="Recovered" text={c.recovered} /> </Col>
+                    <Col> <InfoCard class="cinfo"  title="Confirmed" text={c.cases}/> </Col>
+                    <Col> <InfoCard class="cdanger"  title="Deaths" text={c.deaths} /> </Col>
+                    <Col> <InfoCard class="csuccess"  title="Recovered" text={c.recovered} /> </Col>
                   </Row>
           })}
        </Container>
