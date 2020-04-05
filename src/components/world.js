@@ -1,7 +1,7 @@
 import React from 'react'
 // import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import BootstrapTable from 'react-bootstrap-table-next';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+// import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 const columns = [
   {
@@ -51,7 +51,7 @@ const defaultSorted = [{
   order: 'desc'
 }];
 
-const World = ({countries, regions}) => {
+const World = ({countries}) => {
   return (
     <div>
       <BootstrapTable keyField='country' data={ countries } columns={ columns }  
