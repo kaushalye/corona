@@ -51,7 +51,7 @@ const defaultSorted = [{
   order: 'desc'
 }];
 
-const Stats = ({countries, regions}) => {
+const World = ({countries, regions}) => {
   return (
     <div>
       <BootstrapTable keyField='country' data={ countries } columns={ columns }  
@@ -63,4 +63,4 @@ const Stats = ({countries, regions}) => {
   )
 };
 
-export default Stats
+export default World

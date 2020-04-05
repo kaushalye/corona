@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
-import RegionGraph from './region';
-
+import CountryGraph from './country_graph';
+import { Container, Row, Col} from 'react-bootstrap';
 class Country extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedState: 'Victoria',
+      selectedIndex: 'Confirmed',
     }; 
     this.handleChange = this.handleChange.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
@@ -17,32 +18,43 @@ class Country extends Component {
 
   handleChange(e){
     console.log( 'handleChange', e.target.value);
-    this.setState({selectedState: e.target.value});
+    this.setState({selectedIndex: e.target.value});
   }
 
   render() {
+    const data = {
+      Confirmed: this.props.regions.map(r => {
+        return {state: r.state, data: r.confirmed, ts: r.ts}
+      }),
+      Deaths: this.props.regions.map(r => {
+        return {state: r.state, data: r.deaths, ts: r.ts}
+      }),
+      Recovered: this.props.regions.map(r => {
+        return {state: r.state, data: r.recovered, ts: r.ts}
+      }),
+    }
+
     return (
-      <div className="container.fluid">
-        <div className="row">
-          <div className="col">
-          <select className="custom-select" value={this.state.selectedState}  onChange={this.handleChange} >
-            {this.props.regions.map((r) => {
-                return  <option value={r.state} >{r.state}</option>
+      <Container>
+        <Row align="center">
+          <Col>
+          <select value={this.state.selectedState}  onChange={this.handleChange} >
+            {Object.keys(data).map((key) => {
+                return  <option value={key} >{key}</option>
             })}
           </select>
-          </div>
+          </Col>
           
-        </div>
-        <div className="row">
-            <div className="col">
-              {this.props.regions
-                .filter(r =>  r.state === this.state.selectedState)
-                .map((region) => {
-                return <RegionGraph region={region}/>;
-              })}
-          </div>
-        </div>
-      </div>
+        </Row>
+        <Row align="center">
+        {/* <Col>
+          <p>{JSON.stringify(data[this.state.selectedIndex])}</p>
+          </Col> */}
+            <Col> 
+              <CountryGraph title={this.state.selectedIndex} data={data[this.state.selectedIndex]}/>
+          </Col>
+        </Row>
+      </Container>
       
     );
   }

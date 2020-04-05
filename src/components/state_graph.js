@@ -1,7 +1,7 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
 
-const RegionGraph = ({region}) => {
+const StateGraph = ({region}) => {
   const title = region.state;
   const graphData = [];
   graphData.push({
@@ -24,17 +24,17 @@ const RegionGraph = ({region}) => {
   });
 
  
-return (
-  <div className="container.fluid">
+return ( 
       <Plot
         data={graphData}
         config = {{responsive: true}}
+        style={{ width: '100%', height: '100%' }}
         layout={ { 
-          title
+          title,
+          autosize: true,
         } }
-      /> 
-</div>
+      />  
 
   );
 };
-export default RegionGraph;
+export default StateGraph;
