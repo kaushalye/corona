@@ -53,7 +53,7 @@ const defaultSorted = [{
 
 const Stats = ({countries, regions}) => {
   return (
-    <div className="container.fluid">
+    <div>
       <BootstrapTable keyField='country' data={ countries } columns={ columns }  
             striped={true}
             condensed={true}

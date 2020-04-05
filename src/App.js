@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 import Stats from './components/stats';
 import Country from './components/country';
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -55,19 +54,21 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <div>
+      <div className="container.fluid">
         <nav className="nav nnav nav-tabs justify-content-center">
           <a className="nav-link" href="/corona/world">World</a>
-          <a className="nav-link" href="/corona/aus">Aus</a>
+          <a className="nav-link" href="/corona/aus">Australia</a>
         </nav>
         <Switch>
           <Route path="/corona/world">
             <Stats countries={this.state.countries} />
           </Route>
           <Route path="/corona/aus">
-            <Country  regions={this.state.regions.filter(r => r.iso2 === 'AU')} />
+            {/* <Country  regions={this.state.regions.filter(r => r.iso2 === 'AU')} /> */}
+            <Country  regions={this.state.regions.filter(r => r.iso2 === 'AU')}/>
           </Route>
-          <Redirect from="/corona" to="/corona/stats" />
+          <Redirect from="/corona" to="/corona/world" />
+          <Redirect from="/" to="/corona/world" />
         </Switch>
       </div>
     </Router>

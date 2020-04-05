@@ -2,7 +2,7 @@ import React from 'react';
 import Plot from 'react-plotly.js';
 
 const RegionGraph = ({region}) => {
-  const regionName = region.name;
+  const title = region.state;
   const graphData = [];
   graphData.push({
     name: "Confirmed",
@@ -25,10 +25,16 @@ const RegionGraph = ({region}) => {
 
  
 return (
-  <Plot
-    data={graphData}
-    layout={ { title: regionName} }
-  />
+  <div className="container.fluid">
+      <Plot
+        data={graphData}
+        config = {{responsive: true}}
+        layout={ { 
+          title
+        } }
+      /> 
+</div>
+
   );
 };
 export default RegionGraph;
