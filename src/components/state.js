@@ -6,7 +6,7 @@ class State extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedState: 'Victoria',
+      selectedState: 'Tasmania',
     }; 
     this.handleChange = this.handleChange.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);

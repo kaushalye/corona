@@ -16,7 +16,7 @@ class CountryOverview extends Component {
   render() {
     return (
       <Container className="full-height">
-        <Container>
+        <Container float="center">
           { this.props.country.map((c) => {
             return <Row float="center">
                     <Col> <InfoCard class="cinfo"  title="Confirmed" text={c.cases}/> </Col>

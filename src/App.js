@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
-import World from './components/world';
 import CountryOverview from './components/country_overview';
 import { Container, Nav, Navbar} from 'react-bootstrap';
+import WorldOverview from './components/world_overview'
 import {
   BrowserRouter as Router,
   Switch,
@@ -64,7 +64,7 @@ class App extends Component {
       </Navbar>
         <Switch>
           <Route path="/corona/world">
-            <World countries={this.state.countries} />
+            <WorldOverview countries={this.state.countries} />
           </Route>
           <Route path="/corona/aus"> 
             <CountryOverview country={this.state.countries.filter(c => c.countryInfo.iso2==='AU')} regions={this.state.regions.filter(r => r.iso2 === 'AU')}/>
