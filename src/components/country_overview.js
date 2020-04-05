@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Card, Container, Row, Col} from 'react-bootstrap';
+import { Tabs, Tab, Container, Row, Col} from 'react-bootstrap';
 import InfoCard from './info_card';
 import State from './state';
 import Country from './country';
@@ -15,45 +15,29 @@ class CountryOverview extends Component {
 
   render() {
     return (
-      <Container>
+      <Container className="full-height">
         <Container>
           <Row float="center">
             <Col> <InfoCard title="Confirmed" text="10000"/> </Col>
             <Col> <InfoCard title="Deaths" text="20"/> </Col>
             <Col> <InfoCard title="Recovered" text="5000"/> </Col>
           </Row>
-        </Container>
-
-        <Container>
+       </Container>
+       <Container>
           <Row float="center">
-            <Col>
-              <Card>
-                <Card.Body>
-                  <Card.Header align="center">State Overview</Card.Header>
-                  <Card.Text>
-                    <State regions={this.props.regions}/>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+          <Col>
+            <Tabs defaultActiveKey="compare" className="justify-content-center">
+              <Tab eventKey="compare" title="State Comparison">
+                <Country regions={this.props.regions}/>
+              </Tab>
+              <Tab eventKey="overview" title="State Overview">
+                <State regions={this.props.regions}/>
+              </Tab>
+            </Tabs>
             </Col>
           </Row>
-        </Container>
-
-        <Container>
-          <Row float="center">
-            <Col>
-              <Card>
-                <Card.Body>
-                  <Card.Header align="center">State Comparison</Card.Header>
-                  <Card.Text>
-                    <Country regions={this.props.regions}/>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </Container>
+       </Container>
+    </Container>
     );
   }
 }

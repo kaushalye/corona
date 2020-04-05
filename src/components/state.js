@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import StateGraph from './state_graph';
-import { Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col, Form} from 'react-bootstrap';
 class State extends Component {
 
   constructor(props) {
@@ -28,12 +28,16 @@ class State extends Component {
     return (
       <Container>
         <Row align="center">
-          <Col>
-          <select value={this.state.selectedState}  onChange={this.handleChange} >
-          {this.props.regions.map((r) => {
-                return  <option value={r.state} >{r.state}</option>
-            })}
-          </select>
+          <Col className="form-inline">
+          <Form.Group>
+            <Form.Label >Select a state :  </Form.Label>
+            <Form.Control as="select" value={this.state.selectedState} onChange={this.handleChange}>
+              { this.props.regions.map((r) => {
+                  return  <option value={r.state} >{r.state}</option>
+              })}
+            </Form.Control>
+          </Form.Group>
+
           </Col>
           
         </Row>

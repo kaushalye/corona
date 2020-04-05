@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import World from './components/world';
 import CountryOverview from './components/country_overview';
-import { Container} from 'react-bootstrap';
+import { Container, Nav} from 'react-bootstrap';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,7 +17,7 @@ class App extends Component {
     regions: [],
   }
 
- 
+
   componentDidMount() {
 
     fetch( 'https://corona.lmao.ninja/countries?sort=country')
@@ -55,11 +55,17 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <Container fluid>
-        <nav className="nav nnav nav-tabs justify-content-center">
-          <a className="nav-link" href="/corona/world">World</a>
-          <a className="nav-link" href="/corona/aus">Australia</a>
-        </nav>
+      <Container fluid className="full-height">
+        <Nav className="justify-content-center" variant="pills" >
+          <Nav.Item>
+            <Nav.Link eventKey="1" href="/corona/world">World</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="2" href="/corona/aus">Australia</Nav.Link>
+          </Nav.Item>
+          {/* <a className="nav-link" href="/corona/world">World</a>
+          <a className="nav-link" href="/corona/aus">Australia</a> */}
+        </Nav>
         <Switch>
           <Route path="/corona/world">
             <World countries={this.state.countries} />

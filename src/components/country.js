@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import CountryGraph from './country_graph';
-import { Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col, Form} from 'react-bootstrap';
 class Country extends Component {
 
   constructor(props) {
@@ -36,13 +36,16 @@ class Country extends Component {
 
     return (
       <Container>
-        <Row align="center">
-          <Col>
-          <select value={this.state.selectedState}  onChange={this.handleChange} >
-            {Object.keys(data).map((key) => {
-                return  <option value={key} >{key}</option>
-            })}
-          </select>
+        <Row >
+          <Col className="form-inline">
+          <Form.Group>
+            <Form.Label>Select a criteria :  </Form.Label>
+            <Form.Control as="select"  value={this.state.selectedState}  onChange={this.handleChange}>
+              {Object.keys(data).map((key) => {
+                  return  <option value={key} >{key}</option>
+              })}
+            </Form.Control>
+          </Form.Group>
           </Col>
           
         </Row>
