@@ -59,18 +59,19 @@ class App extends Component {
       <Navbar className="justify-content-center" bg="primary" variant="dark" >
         <Nav  >
           <Nav.Link eventKey="1" href="/corona/world">World</Nav.Link>
-          <Nav.Link eventKey="2" href="/corona/aus">Australia</Nav.Link>
+          <Nav.Link eventKey="2" href="/corona/country">Australia</Nav.Link>
         </Nav>
       </Navbar>
         <Switch>
           <Route path="/corona/world">
             <WorldOverview countries={this.state.countries} />
           </Route>
-          <Route path="/corona/aus"> 
-            <CountryOverview country={this.state.countries.filter(c => c.countryInfo.iso2==='AU')} regions={this.state.regions.filter(r => r.iso2 === 'AU')}/>
+          <Route path="/corona/country/"> 
+            <CountryOverview 
+              country={this.state.countries.filter(c => c.countryInfo.iso2==='AU')} 
+              regions={this.state.regions.filter(r => r.iso2 === 'AU')}/>
           </Route>
           <Redirect from="/corona" to="/corona/world" />
-          <Redirect from="/" to="/corona/world" />
         </Switch>
       </Container>
     </Router>
