@@ -33,32 +33,32 @@ class WorldOverview extends Component {
       {
         sort: true,
         dataField: 'todayCases',
-        text: 'todayCases'
+        text: 'Today Cases'
       },
       {
         sort: true,
         dataField: 'deaths',
-        text: 'deaths'
+        text: 'Deaths'
       },
       {
         sort: true,
         dataField: 'todayDeaths',
-        text: 'todayDeaths'
+        text: 'Today Deaths'
       },
       {
         sort: true,
         dataField: 'recovered',
-        text: 'recovered'
+        text: 'Recovered'
       },
       {
         sort: true,
         dataField: 'active',
-        text: 'active'
+        text: 'Active'
       },
       {
         sort: true,
         dataField: 'critical',
-        text: 'critical'
+        text: 'Critical'
       }
     ];
     
