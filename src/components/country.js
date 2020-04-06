@@ -41,8 +41,8 @@ class Country extends Component {
           <Form.Group>
             <Form.Label>Select a criteria :  </Form.Label>
             <Form.Control as="select"  value={this.state.selectedState}  onChange={this.handleChange}>
-              {Object.keys(data).map((key) => {
-                  return  <option value={key} >{key}</option>
+              {Object.keys(data).map((v, i) => {
+                  return  <option key={i} value={v} >{v}</option>
               })}
             </Form.Control>
           </Form.Group>

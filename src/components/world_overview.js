@@ -113,7 +113,7 @@ class WorldOverview extends Component {
           </Col>
           <Col>           
             <Form.Group controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Show today only" onChange={this.toggleToday} />
+              <Form.Check type="checkbox" label="Today" onChange={this.toggleToday} />
             </Form.Group></Col>
           </Row>
           <Row float="center">

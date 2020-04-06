@@ -32,8 +32,8 @@ class State extends Component {
           <Form.Group>
             <Form.Label >Select a state:  </Form.Label>
             <Form.Control as="select" value={this.state.selectedState} onChange={this.handleChange}>
-              { this.props.regions.map((r) => {
-                  return  <option value={r.state} >{r.state}</option>
+              { this.props.regions.map((r, i) => {
+                  return  <option key={i} value={r.state} >{r.state}</option>
               })}
             </Form.Control>
           </Form.Group>
@@ -45,8 +45,8 @@ class State extends Component {
             <Col>
               {this.props.regions
                 .filter(r =>  r.state === this.state.selectedState)
-                .map((region) => {
-                return <StateGraph region={region}/>;
+                .map((region, i) => {
+                return <StateGraph key={i} region={region}/>;
               })}
           </Col>
         </Row>

@@ -28,7 +28,7 @@ class App extends Component {
     })
     .catch(console.log)
 
-    return fetch( 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=AU')
+    return fetch( 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries')
     .then(res => res.json())
     .then((data) => {
       console.log('fetched from wuhan-coronavirus-api');
@@ -66,11 +66,11 @@ class App extends Component {
           <Route path="/corona/world">
             <WorldOverview countries={this.state.countries} />
           </Route>
-          <Route path="/corona/country/"> 
-            <CountryOverview 
-              country={this.state.countries.filter(c => c.countryInfo.iso2==='AU')} 
-              regions={this.state.regions.filter(r => r.iso2 === 'AU')}/>
-          </Route>
+          <Route path="/corona/country/:id" render={({match}) => (
+                       <CountryOverview 
+                       countries={this.state.countries.filter(c => c.countryInfo.iso2 === match.params.id)} 
+                       regions={this.state.regions.filter(r => r.iso2 === match.params.id)}/>
+              )}/>
           <Redirect from="/corona" to="/corona/world" />
         </Switch>
       </Container>
