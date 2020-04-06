@@ -3,7 +3,7 @@ import { InputGroup, FormControl, Form, Container, Row, Col} from 'react-bootstr
 import BootstrapTable from 'react-bootstrap-table-next';
 
 class WorldOverview extends Component {
-
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -24,11 +24,18 @@ class WorldOverview extends Component {
     });
   }
 
+
   render() {
+
+    const rankFormatter = (cell, row, rowIndex, formatExtraData) => {
+      return (<a href={"/corona/country/"+row.countryInfo.iso2}>{row.country}</a>);
+    }
+
     const columns = [
       {
         sort: true,
         dataField: 'country',
+        formatter: rankFormatter,
         text: 'Country'
       },
       {
@@ -120,22 +127,20 @@ class WorldOverview extends Component {
             <Form.Group controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Today" onChange={this.toggleToday} />
             </Form.Group></Col>
-          </Row>aaa: {JSON.stringify(countriesToCompare)}
-          <Row float="center">
-          <Col>
-          <BootstrapTable keyField='country' 
-            data = {filteredCountries}
-            columns={ this.state.todayOnly? columnsToday: columns }  
-            striped={true}
-            condensed={true}
-            hover={true}
-            bordered={ false }
-            classes={'worldTable'}
-            defaultSorted= {defaultSorted }/>
-          </Col>
           </Row>
-          
-         
+          <Row float="center">
+            <Col>
+              <BootstrapTable keyField='country' 
+                data = {filteredCountries}
+                columns={ this.state.todayOnly? columnsToday: columns }  
+                striped={true}
+                condensed={true}
+                hover={true}
+                bordered={ false }
+                classes={'worldTable'}
+                defaultSorted= {defaultSorted }/>
+            </Col>
+          </Row>
       </Container>
     );
   }

@@ -35,11 +35,8 @@ class App extends Component {
       <Router>
       <Container className="full-height">
       <Navbar className="justify-content-center" bg="primary" variant="dark" >
-        <Nav  >
-          <Nav.Link eventKey="1" href="/corona/world">World</Nav.Link>
-          <Nav.Link eventKey="2" href="/corona/country/AU">Australia</Nav.Link>
-          <Nav.Link eventKey="2" href="/corona/country/LK">Sri Lanka</Nav.Link>
-          <Nav.Link eventKey="2" href="/corona/country/CA">Canada</Nav.Link>
+        <Nav>
+          <Nav.Link eventKey="1" href="/corona/world">Home</Nav.Link>
         </Nav>
       </Navbar>
         <Switch>
