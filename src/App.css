@@ -65,6 +65,10 @@ html, body {
 .csuccess {
   border-color: greenyellow;
 }
+
+.worldTable{
+  /*font-size: 10px;*/
+}
 .container .jumbotron {
   border-style: solid;
   border-width: 0.1em;

@@ -127,6 +127,7 @@ class WorldOverview extends Component {
             condensed={true}
             hover={true}
             bordered={ false }
+            classes={'worldTable'}
             defaultSorted= {defaultSorted }/>
           </Col>
           </Row>
