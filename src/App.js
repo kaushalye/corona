@@ -59,7 +59,7 @@ class App extends Component {
       <Navbar className="justify-content-center" bg="primary" variant="dark" >
         <Nav  >
           <Nav.Link eventKey="1" href="/corona/world">World</Nav.Link>
-          <Nav.Link eventKey="2" href="/corona/country">Australia</Nav.Link>
+          <Nav.Link eventKey="2" href="/corona/country/AU">Australia</Nav.Link>
         </Nav>
       </Navbar>
         <Switch>
