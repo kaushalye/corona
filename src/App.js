@@ -27,28 +27,6 @@ class App extends Component {
       this.setState({ countries: data });
     })
     .catch(console.log)
-
-    return fetch( 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries')
-    .then(res => res.json())
-    .then((data) => {
-      console.log('fetched from wuhan-coronavirus-api');
-      const regions = data.map(r => {
-        const ts = Object.keys(r.timeseries);
-        return {
-          state: r.provincestate,
-          country: r.countryregion,
-          iso2: r.countrycode ? r.countrycode.iso2: '',
-          ts: ts,
-          confirmed: ts.map(t => r.timeseries[t].confirmed ),
-          deaths:ts.map(t => r.timeseries[t].deaths ),
-          recovered:ts.map(t => r.timeseries[t].recovered ),
-        };
-      });
-      console.log('update state for regions', regions.length);
-      console.log(regions);
-      return this.setState({ regions: regions });
-    })
-    .catch(console.log)
   
   }
 
@@ -68,8 +46,9 @@ class App extends Component {
           </Route>
           <Route path="/corona/country/:id" render={({match}) => (
                        <CountryOverview 
+                       iso2={match.params.id}
                        countries={this.state.countries.filter(c => c.countryInfo.iso2 === match.params.id)} 
-                       regions={this.state.regions.filter(r => r.iso2 === match.params.id)}/>
+                       />
               )}/>
           <Redirect from="/corona" to="/corona/world" />
         </Switch>

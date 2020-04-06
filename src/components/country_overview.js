@@ -11,16 +11,41 @@ class CountryOverview extends Component {
     console.log(props);
 
     this.state = {
-      // country: this.props.countries.filter(c => c.countryInfo.iso2 === this.props.iso2),
-      // regions: this.props.regions.filter(r => r.iso2 === this.props.iso2)
+      regions:[]
     };
+  }
+
+  componentDidMount() {
+    const url = 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2='+this.props.iso2
+    console.log('fetching '+url)
+    fetch( url)
+    .then(res => res.json())
+    .then((data) => {
+      console.log('fetched from wuhan-coronavirus-api');
+      const regions = data.map(r => {
+        const ts = Object.keys(r.timeseries);
+        return {
+          state: r.provincestate,
+          country: r.countryregion,
+          iso2: r.countrycode ? r.countrycode.iso2: '',
+          ts: ts,
+          confirmed: ts.map(t => r.timeseries[t].confirmed ),
+          deaths:ts.map(t => r.timeseries[t].deaths ),
+          recovered:ts.map(t => r.timeseries[t].recovered ),
+        };
+      });
+      console.log('update state for regions', regions.length);
+      console.log(regions);
+      return this.setState({ regions: regions });
+    })
+    .catch(console.log)
   }
 
   render() {
     // const id = 'AU';
 
-    const country = this.props.countries;
-    const regions = this.props.regions;
+    const country = this.props.countries.filter(c => c.countryInfo.iso2 === this.props.iso2);
+    const regions = this.state.regions;
     return (
       <Container className="full-height">
         <Container fluid>

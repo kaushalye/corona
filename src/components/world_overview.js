@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { InputGroup, FormControl, Form, Container, Row, Col} from 'react-bootstrap';
-import InfoCard from './info_card';
 import BootstrapTable from 'react-bootstrap-table-next';
 
 class WorldOverview extends Component {
@@ -10,6 +9,7 @@ class WorldOverview extends Component {
     this.state = {
       textfilter: '',
       todayOnly: false,
+      countriesToCompare: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.toggleToday = this.toggleToday.bind(this);
@@ -20,8 +20,13 @@ class WorldOverview extends Component {
     this.setState({todayOnly: e.target.checked});
   }
   handleChange(e){
-    console.log( 'handleChange', e.target.value);
-    this.setState({textfilter: e.target.value});
+    const textfilter = e.target.value;
+    const countriesToCompare = textfilter.split(',').map(str => str.trim().toLowerCase());
+    console.log( 'handleChange', textfilter);
+    this.setState({
+      textfilter,
+      countriesToCompare
+    });
   }
 
   render() {
@@ -95,6 +100,12 @@ class WorldOverview extends Component {
       order: 'desc'
     }];
 
+    // || this.state.countriesToCompare.indexOf(c.country.toLowerCase())
+    const filteredCountries = this.props.countries.filter(
+       c => c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase()) 
+     // c => !this.state.countriesToCompare.indexOf(c.country.toLowerCase())
+      );
+           
     return (
       <Container className="full-height">
         <Row float="center">
@@ -115,13 +126,17 @@ class WorldOverview extends Component {
             <Form.Group controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Today" onChange={this.toggleToday} />
             </Form.Group></Col>
-          </Row>
+          </Row>aaa: {JSON.stringify(this.state.countriesToCompare)}
           <Row float="center">
           <Col>
           <BootstrapTable keyField='country' 
-            data={ 
-              this.props.countries.filter(c=> c.country.toLowerCase().startsWith( this.state.textfilter.toLowerCase())) 
-            } 
+            data = {filteredCountries}
+            // data={ 
+            //   this.props.countries.filter(
+            //     c => ['usa', 'italy'].indexOf(c.country.toLowerCase())
+            //     //c=> c.country.toLowerCase().startsWith( this.state.textfilter.toLowerCase())
+            //     ) 
+            // } 
             columns={ this.state.todayOnly? columnsToday: columns }  
             striped={true}
             condensed={true}
