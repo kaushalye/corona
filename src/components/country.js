@@ -39,7 +39,7 @@ class Country extends Component {
         <Row >
           <Col className="form-inline">
           <Form.Group>
-            <Form.Label>Select a criteria :  </Form.Label>
+            <Form.Label>Criteria :  </Form.Label>
             <Form.Control as="select"  value={this.state.selectedState}  onChange={this.handleChange}>
               {Object.keys(data).map((v, i) => {
                   return  <option key={i} value={v} >{v}</option>

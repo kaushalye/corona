@@ -28,7 +28,9 @@ class WorldOverview extends Component {
   render() {
 
     const rankFormatter = (cell, row, rowIndex, formatExtraData) => {
-      return (<a href={"/corona/country/"+row.countryInfo.iso2}>{row.country}</a>);
+      return (
+      <a href={"/corona/country/"+row.countryInfo.iso2}>{row.country}</a>
+      );
     }
 
     const columns = [
@@ -127,6 +129,11 @@ class WorldOverview extends Component {
             <Form.Group controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Today" onChange={this.toggleToday} />
             </Form.Group></Col>
+          </Row>
+          <Row float="center">
+            <Col>
+              <span>Click a country to see details</span>
+            </Col>
           </Row>
           <Row float="center">
             <Col>

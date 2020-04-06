@@ -30,7 +30,7 @@ class State extends Component {
         <Row align="center">
           <Col className="form-inline">
           <Form.Group>
-            <Form.Label >Select a state:  </Form.Label>
+            <Form.Label >State :  </Form.Label>
             <Form.Control as="select" value={this.state.selectedState} onChange={this.handleChange}>
               { this.props.regions.map((r, i) => {
                   return  <option key={i} value={r.state} >{r.state}</option>
