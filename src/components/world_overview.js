@@ -16,16 +16,11 @@ class WorldOverview extends Component {
   }
 
   toggleToday(e) {
-    console.log( 'toggleToday', e.target.checked);
     this.setState({todayOnly: e.target.checked});
   }
   handleChange(e){
-    const textfilter = e.target.value;
-    const countriesToCompare = textfilter.split(',').map(str => str.trim().toLowerCase());
-    console.log( 'handleChange', textfilter);
     this.setState({
-      textfilter,
-      countriesToCompare
+      textfilter: e.target.value,
     });
   }
 
@@ -100,11 +95,10 @@ class WorldOverview extends Component {
       order: 'desc'
     }];
 
-    // || this.state.countriesToCompare.indexOf(c.country.toLowerCase())
-    const filteredCountries = this.props.countries.filter(
-       c => c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase()) 
-     // c => !this.state.countriesToCompare.indexOf(c.country.toLowerCase())
-      );
+    const countriesToCompare = this.state.textfilter.split(',').map(str => str.trim().toLowerCase());
+    const filteredCountries = this.props.countries.filter( c => (countriesToCompare.length > 1) ? countriesToCompare.includes(c.country.toLowerCase()): c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase()))
+    
+    console.log('advanced', filteredCountries);
            
     return (
       <Container className="full-height">
@@ -115,7 +109,7 @@ class WorldOverview extends Component {
               <InputGroup.Text id="basic-addon1" >Filter</InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
-              placeholder="Start typing here"
+              placeholder="usa, uk, italy"
               aria-label="Filter"
               aria-describedby="basic-addon1"
               onInput={this.handleChange}
@@ -126,17 +120,11 @@ class WorldOverview extends Component {
             <Form.Group controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Today" onChange={this.toggleToday} />
             </Form.Group></Col>
-          </Row>aaa: {JSON.stringify(this.state.countriesToCompare)}
+          </Row>aaa: {JSON.stringify(countriesToCompare)}
           <Row float="center">
           <Col>
           <BootstrapTable keyField='country' 
             data = {filteredCountries}
-            // data={ 
-            //   this.props.countries.filter(
-            //     c => ['usa', 'italy'].indexOf(c.country.toLowerCase())
-            //     //c=> c.country.toLowerCase().startsWith( this.state.textfilter.toLowerCase())
-            //     ) 
-            // } 
             columns={ this.state.todayOnly? columnsToday: columns }  
             striped={true}
             condensed={true}
