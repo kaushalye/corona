@@ -38,6 +38,8 @@ class App extends Component {
         <Nav  >
           <Nav.Link eventKey="1" href="/corona/world">World</Nav.Link>
           <Nav.Link eventKey="2" href="/corona/country/AU">Australia</Nav.Link>
+          <Nav.Link eventKey="2" href="/corona/country/LK">Sri Lanka</Nav.Link>
+          <Nav.Link eventKey="2" href="/corona/country/CA">Canada</Nav.Link>
         </Nav>
       </Navbar>
         <Switch>

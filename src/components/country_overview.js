@@ -3,6 +3,8 @@ import { Tabs, Tab, Container, Row, Col} from 'react-bootstrap';
 import InfoCard from './info_card';
 import State from './state';
 import Country from './country';
+import StateGraph from './state_graph';
+
 class CountryOverview extends Component {
 
   constructor(props) {
@@ -11,7 +13,7 @@ class CountryOverview extends Component {
     console.log(props);
 
     this.state = {
-      regions:[]
+      regions:[],
     };
   }
 
@@ -46,6 +48,7 @@ class CountryOverview extends Component {
 
     const country = this.props.countries.filter(c => c.countryInfo.iso2 === this.props.iso2);
     const regions = this.state.regions;
+    const hasMultipleStates = regions.length > 1;
     return (
       <Container className="full-height">
         <Container fluid>
@@ -57,20 +60,32 @@ class CountryOverview extends Component {
                   </Row>
           })}
        </Container>
-       <Container>
+       
+       <Container >
           <Row float="center">
           <Col>
-            <Tabs defaultActiveKey="compare" className="justify-content-center">
-              <Tab eventKey="compare" title="State Comparison">
+            {!hasMultipleStates &&
+              <Container >
+                {regions.map((region, i) => {
+                  return <StateGraph key={i} region={region}/>;
+                })}
+              </Container>
+            }
+
+            {hasMultipleStates &&
+              <Container >
+                 <State regions={regions}/>
+              </Container>
+            }
+            {hasMultipleStates &&
+              <Container >
                 <Country regions={regions}/>
-              </Tab>
-              <Tab eventKey="overview" title="State Overview">
-                <State regions={regions}/>
-              </Tab>
-            </Tabs>
+              </Container>
+            }
             </Col>
           </Row>
        </Container>
+        
     </Container>
     );
   }
