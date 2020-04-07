@@ -29,7 +29,7 @@ class WorldOverview extends Component {
 
     const rankFormatter = (cell, row, rowIndex, formatExtraData) => {
       return (
-      <a href={"/corona/country/"+row.countryInfo.iso2}>{row.country}</a>
+      <span className="worldLink"><a href={"/corona/country/"+row.countryInfo.iso2}>{row.country}</a></span>
       );
     }
 
@@ -110,7 +110,7 @@ class WorldOverview extends Component {
     console.log('advanced', filteredCountries);
            
     return (
-      <Container className="full-height">
+      <Container>
         <Row float="center">
           <Col>
           <InputGroup className="mb-3">

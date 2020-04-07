@@ -47,38 +47,52 @@ html, body {
 .full-height {
   height: 100%;
   padding: 0;
-  width: 90%;
+  width: 95%;
   background: white;
 }
 
 .cdanger {
-  border-color: coral;
+  color: coral;
 }
 .cinfo {
-  border-color: lightblue;
+  color: lightblue;
 }
 .csuccess {
-  border-color: greenyellow;
+  color: greenyellow;
+}
+.cardContainer {
+  display:inline
 }
 
-.container .jumbotron {
-  border-style: solid;
-  border-width: 0.1em;
-  text-align: center;
-  border-radius: 50% !important;
-  padding: 70px 0;
-  margin: 10px;
-  width: 200px;
-  height: 200px;
+.countryHeder{
+  background-color: black;
+  padding: 10px 0px;
+  font-size: 12px;
 }
-.container .row {
-  padding: 10px 0 0 0;
+.cardTitle{
 }
+.cardText{
+  color: white;
+}
+
 .flagImg{
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 20px;
+  border-width: 1em;
+  border-color: white;
+
+}
+.lastUpdated{
+  font-size: 10px;
+  color: white;
+  float: right;
 }
 .countryName {
   padding: 0 20px;
-  font-size: 32px;
+  font-size: 16px;
+  color: white;
+}
+
+.worldLink a {
+  text-decoration: none;
 }

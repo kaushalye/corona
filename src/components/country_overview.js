@@ -50,18 +50,16 @@ class CountryOverview extends Component {
     const regions = this.state.regions;
     const hasMultipleStates = regions.length > 1;
     return (
-      <Container className="full-height">
-
-
         <Container >
 
           {country.map((c, i) => {
-            return (<Row float="center" key={i}>
-              <Image src={country.map(c => c.countryInfo.flag).join(',')} rounded className="flagImg"/>
-              <span className="countryName">{country.map(c => c.country).join(',')}</span>
-              <Col> <InfoCard class="cinfo" title="Confirmed" text={c.cases} /> </Col>
-              <Col> <InfoCard class="cdanger" title="Deaths" text={c.deaths} /> </Col>
-              <Col> <InfoCard class="csuccess" title="Recovered" text={c.recovered} /> </Col>
+            return (
+            <Row className="countryHeder" float="center" key={i}>
+              <Col><Image src={country.map(c => c.countryInfo.flag).join(',')} rounded className="flagImg"/>
+              <span className="countryName">{country.map(c => c.country).join(',')}</span>  </Col>
+              <Col> <InfoCard class="cinfo" title="Confirmed" text={c.cases} />  
+                <InfoCard class="cdanger" title="Deaths" text={c.deaths} /> 
+               <InfoCard class="csuccess" title="Recovered" text={c.recovered} /> </Col>
             </Row>)
           })}
 
@@ -88,9 +86,11 @@ class CountryOverview extends Component {
               }
             </Col>
           </Row>
+          <Row className="countryHeder">
+          <Col>
+              <span className="lastUpdated">Last updated: {country.map(c => (new Date(c.updated)).toLocaleString()).join(',')}</span>  </Col>
+          </Row>
         </Container>
-
-      </Container>
     );
   }
 }

@@ -8,11 +8,9 @@ class InfoCard extends Component {
 
   render() {
     return (
-      <Jumbotron className={this.props.class} >
-        <h4>{this.props.title}</h4>
-        <p>{this.props.text}</p>
-      </Jumbotron>
-
+      <Container className="cardContainer">
+        <span className={this.props.class}>{this.props.title}:</span><span className="cardText">{this.props.text}</span>
+        </Container>
     );
   }
 }

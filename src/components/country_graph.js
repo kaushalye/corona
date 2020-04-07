@@ -1,5 +1,5 @@
 import React from 'react';
-import Plot from 'react-plotly.js';
+import Graph from './graph';
 
 const CountryGraph = ({title, data}) => {
 
@@ -12,17 +12,6 @@ const CountryGraph = ({title, data}) => {
     }
   });
 
-return ( 
-      <Plot
-        data={graphData}
-        config = {{responsive: true}}
-        style={{ width: '100%', height: '100%' }}
-        layout={ {
-          title,
-          autosize: true,
-        } }
-      />  
-
-  );
+return (<Graph graphData={graphData} title={title}/>);
 };
 export default CountryGraph;
