@@ -111,7 +111,7 @@ class WorldOverview extends Component {
            
     return (
       <Container>
-        <Row float="center">
+        <Row float="center" className="worldControlPane">
           <Col>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
@@ -127,8 +127,14 @@ class WorldOverview extends Component {
           </Col>
           <Col>           
             <Form.Group controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Today" onChange={this.toggleToday} />
-            </Form.Group></Col>
+            <label class="switch">
+              <input type="checkbox" onChange={this.toggleToday}/> 
+              <span class="slider"></span>
+            </label> <span>Show today</span>
+              {/* <Form.Check type="checkbox" id="switch" label="Today" onChange={this.toggleToday} /> */}
+            </Form.Group> 
+            
+            </Col>
           </Row>
           <Row float="center">
             <Col>

@@ -7,9 +7,12 @@ return (
         data={graphData}
         config = {{responsive: true}}
      
-        layout={ { 
+        layout={ {
+          font:{size:8}, 
+          xaxis: {showgrid:false},
+          autosize:true,
           title,
-          legend: {x: 0.1, y: 0.5}
+          legend: {x: 1, y: 1}
         } }
       />  
 

@@ -49,6 +49,7 @@ class CountryOverview extends Component {
     const country = this.props.countries.filter(c => c.countryInfo.iso2 === this.props.iso2);
     const regions = this.state.regions;
     const hasMultipleStates = regions.length > 1;
+    
     return (
         <Container >
 
@@ -57,14 +58,16 @@ class CountryOverview extends Component {
             <Row className="countryHeder" float="center" key={i}>
               <Col><Image src={country.map(c => c.countryInfo.flag).join(',')} rounded className="flagImg"/>
               <span className="countryName">{country.map(c => c.country).join(',')}</span>  </Col>
-              <Col> <InfoCard class="cinfo" title="Confirmed" text={c.cases} />  
+              <Col> 
+                <InfoCard class="cinfo" title="Confirmed" text={c.cases} />  
                 <InfoCard class="cdanger" title="Deaths" text={c.deaths} /> 
-               <InfoCard class="csuccess" title="Recovered" text={c.recovered} /> </Col>
+                <InfoCard class="csuccess" title="Recovered" text={c.recovered} /> 
+               </Col>
             </Row>)
           })}
 
 
-          <Row float="center">
+          <Row float="center" className="countryGraphPane">
             <Col>
               {!hasMultipleStates &&
                 <Container >
@@ -75,12 +78,13 @@ class CountryOverview extends Component {
               }
 
               {hasMultipleStates &&
-                <Container >
-                  <State regions={regions} />
-                </Container>
+                  <Container >
+                    <State regions={regions} />
+                  </Container>
               }
+ 
               {hasMultipleStates &&
-                <Container >
+                  <Container>
                   <Country regions={regions} />
                 </Container>
               }

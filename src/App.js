@@ -34,7 +34,7 @@ class App extends Component {
     return (
       <Router>
       <Container className="full-height">
-      <Navbar className="justify-content-center" bg="primary" variant="dark" >
+      <Navbar className="justify-content" bg="primary" variant="dark" >
         <Nav>
           <Nav.Link eventKey="1" href="/corona/world">Home</Nav.Link>
         </Nav>
