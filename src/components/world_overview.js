@@ -136,9 +136,9 @@ class WorldOverview extends Component {
             
             </Col>
           </Row>
-          <Row float="center">
+          <Row float="center"  className="textAll">
             <Col>
-              <span>Click a country to see details</span>
+              <span>Select a country to see details</span>
             </Col>
           </Row>
           <Row float="center">

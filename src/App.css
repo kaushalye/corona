@@ -110,8 +110,14 @@ html, body {
 .worldControlPane{
   padding: 5px 0px 5px 5px;
 }
+
+.textAll{
+  padding: 0px 5px;
+}
+
 .countryGraphPane{
   padding: 5px;
+
 }
 /*toggle start*/
 .switch {
