@@ -39,10 +39,8 @@ class Graph extends Component {
             legend: {x: 1, y: 1}
           } }
         />  
-
     );
   };
-  
 }
 
 export default Graph;

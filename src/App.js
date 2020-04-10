@@ -36,7 +36,20 @@ class App extends Component {
       <Container className="full-height">
       <Navbar className="justify-content" bg="primary" variant="dark" >
         <Nav>
-          <Nav.Link eventKey="1" href="/corona/world">Home</Nav.Link>
+          <Nav.Link eventKey="1" href="/corona/world">      
+            <img
+              src="/logo192.png"
+              width="20"
+              height="20"
+              className="d-inline-block align-top"
+              alt="React Bootstrap logo"
+            /> 
+          </Nav.Link>
+        </Nav>
+        <Nav>
+          <Nav.Item>      
+            <span className="pageTitle">COVID-19 statistics</span>
+          </Nav.Item>
         </Nav>
       </Navbar>
         <Switch>

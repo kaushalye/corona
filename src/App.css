@@ -52,10 +52,15 @@ html, body {
   width: 100%;
   background: white;
 }
-
 .container {
   padding: 0px;
 }
+
+.pageTitle{
+  color: white;
+  font-size: large;
+}
+
 .cdanger {
   color: coral;
 }
@@ -80,6 +85,7 @@ html, body {
 .lastUpdated{
   font-size: 10px;
   color: white;
+  float: right;
 }
 
 .cardTitle{
@@ -117,7 +123,6 @@ html, body {
 
 .countryGraphPane{
   padding: 5px;
-
 }
 /*toggle start*/
 .switch {
