@@ -14,6 +14,8 @@ class WorldOverview extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.toggleToday = this.toggleToday.bind(this);
+    this.countryFormatter = this.countryFormatter.bind(this);
+    this.toNumString = this.toNumString.bind(this);
   }
 
   toggleToday(e) {
@@ -40,19 +42,40 @@ class WorldOverview extends Component {
 
   }
 
+  toNumString(num) {
+    if (!num) {
+      return "0";
+    }
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
+  countryFormatter(cell, row, rowIndex, formatExtraData)  {
+    return (
+    <span className="worldLink">
+      <a href={"/corona/country/"+row.countryInfo.iso2}>
+        <Image src={row.countryInfo.flag} className="flagImg" />&nbsp;{row.country}
+      </a>
+    </span>
+    );
+  }
+
   render() {
 
-    const rankFormatter = (cell, row, rowIndex, formatExtraData) => {
-      return (
-      <span className="worldLink"><a href={"/corona/country/"+row.countryInfo.iso2}>{row.country}</a></span>
-      );
-    }
+    // const rankFormatter = (cell, row, rowIndex, formatExtraData) => {
+    //   return (
+    //   <span className="worldLink">
+    //     <a href={"/corona/country/"+row.countryInfo.iso2}>
+    //       <Image src={row.countryInfo.flag} className="flagImg" />&nbsp;{row.country}
+    //     </a>
+    //   </span>
+    //   );
+    // }
 
     const columns = [
       {
         sort: true,
         dataField: 'country',
-        formatter: rankFormatter,
+        formatter: this.countryFormatter,
         text: 'Country'
       },
       {
@@ -60,6 +83,7 @@ class WorldOverview extends Component {
         headerAlign: 'right',
         align: 'right',
         dataField: 'cases',
+        formatter: this.toNumString,
         text: 'Cases'
       },
       {
@@ -67,6 +91,7 @@ class WorldOverview extends Component {
         headerAlign: 'right',
         align: 'right',
         dataField: 'deaths',
+        formatter: this.toNumString,
         text: 'Deaths'
       },
       {
@@ -74,6 +99,7 @@ class WorldOverview extends Component {
         headerAlign: 'right',
         align: 'right',
         dataField: 'recovered',
+        formatter: this.toNumString,
         text: 'Recovered'
       },
       {
@@ -81,6 +107,7 @@ class WorldOverview extends Component {
         headerAlign: 'right',
         align: 'right',
         dataField: 'active',
+        formatter: this.toNumString,
         text: 'Active'
       },
       {
@@ -88,6 +115,7 @@ class WorldOverview extends Component {
         headerAlign: 'right',
         align: 'right',
         dataField: 'critical',
+        formatter: this.toNumString,
         text: 'Critical'
       }
     ];
@@ -103,6 +131,7 @@ class WorldOverview extends Component {
         headerAlign: 'right',
         align: 'right',
         dataField: 'todayCases',
+        formatter: this.toNumString,
         text: 'Today Cases'
       },
       {
@@ -110,6 +139,7 @@ class WorldOverview extends Component {
         headerAlign: 'right',
         align: 'right',
         dataField: 'todayDeaths',
+        formatter: this.toNumString,
         text: 'Today Deaths'
       },
     ];
@@ -151,9 +181,9 @@ class WorldOverview extends Component {
           </Col>
           <Col>           
             <Form.Group controlId="formBasicCheckbox">
-            <label class="switch">
+            <label className="switch">
               <input type="checkbox" onChange={this.toggleToday}/> 
-              <span class="slider"></span>
+              <span className="slider"></span>
             </label> <span>Show today</span>
               {/* <Form.Check type="checkbox" id="switch" label="Today" onChange={this.toggleToday} /> */}
             </Form.Group> 

@@ -8,10 +8,11 @@ class InfoCard extends Component {
 
   toNumString(num) {
     if (!num) {
-      return "";
+      return "0";
     }
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
+  
   render() {
     return (
       <Container className="cardContainer">

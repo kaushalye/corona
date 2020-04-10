@@ -13,11 +13,11 @@ class StatsHeader extends Component {
       return ( 
         <Container>  
             <Row className="countryHeader" >
-              <Col sm={3}>
+              <Col >
                 <Image src={this.props.img}  className={this.props.imgClass} />
                 <span className="countryName">{this.props.name} </span> 
               </Col>
-              <Col sm={9} align="right"> 
+              <Col align="right"> 
                 <InfoCard class="cinfo" title="Confirmed" text={this.props.confirmed}  />  
                 <InfoCard class="cdanger" title="Deaths" text={this.props.deaths} /> 
                 <InfoCard class="csuccess" title="Recovered" text={this.props.recovered} /> 
