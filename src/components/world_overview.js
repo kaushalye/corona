@@ -10,7 +10,7 @@ class WorldOverview extends Component {
       textfilter: '',
       todayOnly: false,
       countriesToCompare: [],
-      soFar: {}
+      soFar: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.toggleToday = this.toggleToday.bind(this);
@@ -31,7 +31,10 @@ class WorldOverview extends Component {
     .then(res => res.json())
     .then((data) => {
       console.log('fetched from corona.lmao.ninja all');
-      this.setState({ soFar: data });
+      this.setState({ 
+        soFar: data,
+        lastUpdated: data.updated,
+      });
     })
     .catch(console.log)
 
@@ -159,7 +162,7 @@ class WorldOverview extends Component {
           </Row>
           <Row float="center"  className="textAll">
             <Col>
-              <span>Select a country to see details</span>
+    <span>Select a country to see details</span>
             </Col>
           </Row>
           <Row float="center">

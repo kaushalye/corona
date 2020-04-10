@@ -30,7 +30,7 @@ class Graph extends Component {
           config = {{displayModeBar: false}}
           layout={ {
             font:{size:6, color: "grey"}, 
-            width: (w > 300 )? w * 0.8: w,
+            width: (w > 300 )? (w*.7): w,
             height: h * 0.5,
             padding: {l:0, t:0, r:0, b:0},
             xaxis: {showgrid:false},

@@ -24,7 +24,9 @@ class App extends Component {
     .then(res => res.json())
     .then((data) => {
       console.log('fetched from corona.lmao.ninja');
-      this.setState({ countries: data });
+      this.setState({ 
+        countries: data,
+      });
     })
     .catch(console.log)
 
@@ -48,7 +50,7 @@ class App extends Component {
         </Nav>
         <Nav>
           <Nav.Item>      
-            <span className="pageTitle">COVID-19 statistics</span>
+    <span className="pageTitle">COVID-19 statistics</span>
           </Nav.Item>
         </Nav>
       </Navbar>
