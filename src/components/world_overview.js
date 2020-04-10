@@ -61,16 +61,6 @@ class WorldOverview extends Component {
 
   render() {
 
-    // const rankFormatter = (cell, row, rowIndex, formatExtraData) => {
-    //   return (
-    //   <span className="worldLink">
-    //     <a href={"/corona/country/"+row.countryInfo.iso2}>
-    //       <Image src={row.countryInfo.flag} className="flagImg" />&nbsp;{row.country}
-    //     </a>
-    //   </span>
-    //   );
-    // }
-
     const columns = [
       {
         sort: true,
@@ -157,7 +147,7 @@ class WorldOverview extends Component {
     return (
       <Container>
         <StatsHeader 
-            name="Golbal"
+            name="World"
             img="/corona.png" 
             imgClass="globalImg" 
             confirmed={this.state.soFar.cases}

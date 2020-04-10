@@ -8,12 +8,11 @@ class StatsHeader extends Component {
     super(props);
   }
 
-
   render() {
       return ( 
         <Container>  
             <Row className="countryHeader" >
-              <Col >
+              <Col>
                 <Image src={this.props.img}  className={this.props.imgClass} />
                 <span className="countryName">{this.props.name} </span> 
               </Col>
