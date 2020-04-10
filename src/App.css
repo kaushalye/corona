@@ -72,13 +72,12 @@ html, body {
 }
 .cardContainer {
   display:inline;
-  padding: 0 10px;
+  padding: 0 3px;
 }
 
 .countryHeader{
   background-color: black;
   padding: 10px 0px;
-  font-size: 12px;
   margin: 0;
 }
 
@@ -95,8 +94,8 @@ html, body {
 }
 
 .flagImg{
-  width: 30px;
-  height: 20px;
+  width: 20px;
+  height: 16px;
   border-width: 1em;
   border-color: white;
 

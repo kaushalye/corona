@@ -56,8 +56,10 @@ class CountryOverview extends Component {
           {country.map((c, i) => {
             return (
                 <Row className="countryHeader" float="center" key={i}>
-                  <Col><Image src={country.map(c => c.countryInfo.flag).join(',')} rounded className="flagImg"/>
-                  <span className="countryName">{country.map(c => c.country).join(',')}</span>  </Col>
+                  <Col> 
+                    <Image src={country.map(c => c.countryInfo.flag).join(',')} rounded className="flagImg"/>
+                    <span className="countryName">{country.map(c => c.country).join(',')}</span> 
+                  </Col>
                   <Col> 
                     <InfoCard class="cinfo" title="Confirmed" text={c.cases} />  
                     <InfoCard class="cdanger" title="Deaths" text={c.deaths} /> 
