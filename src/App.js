@@ -27,7 +27,7 @@ class App extends Component {
       this.setState({ countries: data });
     })
     .catch(console.log)
-  
+
   }
 
   render() {
@@ -39,8 +39,8 @@ class App extends Component {
           <Nav.Link eventKey="1" href="/corona/world">      
             <img
               src="/logo192.png"
-              width="20"
-              height="20"
+              width="25"
+              height="25"
               className="d-inline-block align-top"
               alt="React Bootstrap logo"
             /> 

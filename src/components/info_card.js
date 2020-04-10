@@ -6,10 +6,16 @@ class InfoCard extends Component {
     super(props);
   }
 
+  toNumString(num) {
+    if (!num) {
+      return "";
+    }
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
   render() {
     return (
       <Container className="cardContainer">
-        <span className={this.props.class}>{this.props.title}:</span><span className="cardText">{this.props.text}</span>
+        <span className={this.props.class}>{this.props.title}:</span><span className="cardText">{this.toNumString(this.props.text)}</span>
         </Container>
     );
   }

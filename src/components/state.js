@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import StateGraph from './state_graph';
-import { Container, Row, Col, Form} from 'react-bootstrap';
+import { Container, Row, Col, Form, InputGroup} from 'react-bootstrap';
 class State extends Component {
 
   constructor(props) {

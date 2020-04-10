@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { InputGroup, FormControl, Form, Container, Row, Col} from 'react-bootstrap';
+import { InputGroup, FormControl, Form, Container, Row, Col, Image} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
-
+import StatsHeader from './stats_header';
 class WorldOverview extends Component {
   
   constructor(props) {
@@ -10,6 +10,7 @@ class WorldOverview extends Component {
       textfilter: '',
       todayOnly: false,
       countriesToCompare: [],
+      soFar: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.toggleToday = this.toggleToday.bind(this);
@@ -24,6 +25,17 @@ class WorldOverview extends Component {
     });
   }
 
+  componentDidMount() {
+
+    fetch( 'https://corona.lmao.ninja/all')
+    .then(res => res.json())
+    .then((data) => {
+      console.log('fetched from corona.lmao.ninja all');
+      this.setState({ soFar: data });
+    })
+    .catch(console.log)
+
+  }
 
   render() {
 
@@ -111,7 +123,16 @@ class WorldOverview extends Component {
            
     return (
       <Container>
+        <StatsHeader 
+            name="Golbal"
+            img="/corona.png" 
+            imgClass="globalImg" 
+            confirmed={this.state.soFar.cases}
+            deaths={this.state.soFar.deaths}
+            recovered={this.state.soFar.recovered}
+        />
         <Row float="center" className="worldControlPane">
+    
           <Col>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>

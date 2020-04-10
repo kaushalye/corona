@@ -4,6 +4,7 @@ import InfoCard from './info_card';
 import State from './state';
 import Country from './country';
 import StateGraph from './state_graph';
+import StatsHeader from './stats_header';
 
 class CountryOverview extends Component {
 
@@ -55,17 +56,14 @@ class CountryOverview extends Component {
 
           {country.map((c, i) => {
             return (
-                <Row className="countryHeader" float="center" key={i}>
-                  <Col> 
-                    <Image src={country.map(c => c.countryInfo.flag).join(',')} rounded className="flagImg"/>
-                    <span className="countryName">{country.map(c => c.country).join(',')}</span> 
-                  </Col>
-                  <Col> 
-                    <InfoCard class="cinfo" title="Confirmed" text={c.cases} />  
-                    <InfoCard class="cdanger" title="Deaths" text={c.deaths} /> 
-                    <InfoCard class="csuccess" title="Recovered" text={c.recovered} /> 
-                  </Col>
-                </Row>
+              <StatsHeader 
+                name={country.map(c => c.country).join(',')}
+                img={country.map(c => c.countryInfo.flag).join(',')} 
+                imgClass="flagImg" 
+                confirmed={c.cases}
+                deaths={c.deaths}
+                recovered={c.recovered}
+              />
             )
           })}
                 <Row float="center" className="countryGraphPane">
