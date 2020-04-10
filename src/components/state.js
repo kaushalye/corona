@@ -26,20 +26,19 @@ class State extends Component {
 
   render() {
     return (
-      <Container>
+      <Container className="statePane">
         <Row align="center">
           <Col className="form-inline">
           <Form.Group>
-            <Form.Label >State :  </Form.Label>
+            <Form.Label >State:</Form.Label>
             <Form.Control as="select" value={this.state.selectedState} onChange={this.handleChange}>
               { this.props.regions.map((r, i) => {
+                  console.log("state select");
                   return  <option key={i} value={r.state} >{r.state}</option>
               })}
             </Form.Control>
           </Form.Group>
-
           </Col>
-          
         </Row>
         <Row align="center">
             <Col>

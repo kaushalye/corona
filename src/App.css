@@ -40,19 +40,22 @@
 
 
 html, body {
-  height: 100%;
   background: #95a5a6;
   font-size: smaller;
-  color: gray;
+  color: #2C3E50 ;
+  
 }
 
 .full-height {
   height: 100%;
-  padding: 0;
+  padding: 0px !important;
   width: 100%;
   background: white;
 }
 
+.container {
+  padding: 0px;
+}
 .cdanger {
   color: coral;
 }
@@ -63,14 +66,22 @@ html, body {
   color: greenyellow;
 }
 .cardContainer {
-  display:inline
+  display:inline;
+  padding: 0 10px;
 }
 
-.countryHeder{
+.countryHeader{
   background-color: black;
   padding: 10px 0px;
   font-size: 12px;
+  margin: 0;
 }
+
+.lastUpdated{
+  font-size: 10px;
+  color: white;
+}
+
 .cardTitle{
 }
 .cardText{
@@ -84,11 +95,7 @@ html, body {
   border-color: white;
 
 }
-.lastUpdated{
-  font-size: 10px;
-  color: white;
-  float: right;
-}
+
 
 .countryName {
   padding: 10px ;
@@ -100,30 +107,11 @@ html, body {
   text-decoration: none;
 }
 
-.plot-container {
-  background-color: red;
-}
-
-.main-svg{
-  /* width: 100% !important;
-  height: 100% !important; */
-}
-
-.svg-container{
-  margin-left: -100px !important;
-}
-.xy{
-  margin-top: -100px!important;
-}
-
-
 .worldControlPane{
-  padding-top: 5px;
-  padding-bottom: 0px;
+  padding: 5px 0px 5px 5px;
 }
-
 .countryGraphPane{
-  padding-top: 5px;
+  padding: 5px;
 }
 /*toggle start*/
 .switch {
@@ -181,3 +169,5 @@ input:checked + .slider:before {
 
 
 /**toggle end*/
+
+

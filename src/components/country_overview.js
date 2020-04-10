@@ -51,49 +51,44 @@ class CountryOverview extends Component {
     const hasMultipleStates = regions.length > 1;
     
     return (
-        <Container >
+        <Container className="countryPane">
 
           {country.map((c, i) => {
             return (
-            <Row className="countryHeder" float="center" key={i}>
-              <Col><Image src={country.map(c => c.countryInfo.flag).join(',')} rounded className="flagImg"/>
-              <span className="countryName">{country.map(c => c.country).join(',')}</span>  </Col>
-              <Col> 
-                <InfoCard class="cinfo" title="Confirmed" text={c.cases} />  
-                <InfoCard class="cdanger" title="Deaths" text={c.deaths} /> 
-                <InfoCard class="csuccess" title="Recovered" text={c.recovered} /> 
-               </Col>
-            </Row>)
+                <Row className="countryHeader" float="center" key={i}>
+                  <Col><Image src={country.map(c => c.countryInfo.flag).join(',')} rounded className="flagImg"/>
+                  <span className="countryName">{country.map(c => c.country).join(',')}</span>  </Col>
+                  <Col> 
+                    <InfoCard class="cinfo" title="Confirmed" text={c.cases} />  
+                    <InfoCard class="cdanger" title="Deaths" text={c.deaths} /> 
+                    <InfoCard class="csuccess" title="Recovered" text={c.recovered} /> 
+                  </Col>
+                </Row>
+            )
           })}
+                <Row float="center" className="countryGraphPane">
+                  <Col>
+                    {!hasMultipleStates &&
+                      <Container >
+                        {regions.map((region, i) => {
+                          return <StateGraph key={i} region={region} />;
+                        })}
+                      </Container>
+                    }
 
-
-          <Row float="center" className="countryGraphPane">
-            <Col>
-              {!hasMultipleStates &&
-                <Container >
-                  {regions.map((region, i) => {
-                    return <StateGraph key={i} region={region} />;
-                  })}
-                </Container>
-              }
-
-              {hasMultipleStates &&
-                  <Container >
-                    <State regions={regions} />
-                  </Container>
-              }
- 
-              {hasMultipleStates &&
-                  <Container>
-                  <Country regions={regions} />
-                </Container>
-              }
-            </Col>
-          </Row>
-          <Row className="countryHeder">
-          <Col>
-              <span className="lastUpdated">Last updated: {country.map(c => (new Date(c.updated)).toLocaleString()).join(',')}</span>  </Col>
-          </Row>
+                    {hasMultipleStates &&
+                        <Container >
+                          <State regions={regions} />
+                        </Container>
+                    }
+      
+                    {hasMultipleStates &&
+                        <Container>
+                        <Country regions={regions} />
+                      </Container>
+                    }
+                  </Col>
+                </Row>
         </Container>
     );
   }
