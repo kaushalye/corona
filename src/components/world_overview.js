@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import { InputGroup, FormControl, Form, Container, Row, Col, Image} from 'react-bootstrap';
+import { InputGroup, 
+  FormControl,
+  Container, 
+  Row, 
+  Col, 
+  ButtonGroup,
+  Button,
+  Image} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import StatsHeader from './stats_header';
 class WorldOverview extends Component {
@@ -8,18 +15,20 @@ class WorldOverview extends Component {
     super(props);
     this.state = {
       textfilter: '',
-      todayOnly: false,
+      mode: '0',
       countriesToCompare: [],
       soFar: {},
     };
+    this.modeChanged = this.modeChanged.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.toggleToday = this.toggleToday.bind(this);
     this.countryFormatter = this.countryFormatter.bind(this);
     this.toNumString = this.toNumString.bind(this);
   }
 
-  toggleToday(e) {
-    this.setState({todayOnly: e.target.checked});
+  modeChanged(e) {
+    this.setState({
+      mode: e.target.value,
+    });
   }
   handleChange(e){
     this.setState({
@@ -59,88 +68,30 @@ class WorldOverview extends Component {
   }
 
   render() {
+    const countryColumn = {
+      sort: true,
+      dataField: 'country',
+      formatter: this.countryFormatter,
+      text: 'Country'
+    };
 
-    const columns = [
+    const columnsConfig = {
+      '0': ['cases', 'deaths', 'recovered', 'active', 'critical', 'tests', ],
+      '1': ['todayCases', 'todayDeaths', ],
+      '2': ['casesPerOneMillion', 'deathsPerOneMillion', 'testsPerOneMillion',],
+    };
+    const columns = columnsConfig[this.state.mode || '0'].map(col =>  (
       {
         sort: true,
-        dataField: 'country',
-        formatter: this.countryFormatter,
-        text: 'Country'
-      },
-      {
-        sort: true,
+        text: col.replace(/^\w/, c => c.toUpperCase()),
+        dataField: col,
+        formatter: this.toNumString,
         headerAlign: 'right',
         align: 'right',
-        dataField: 'cases',
-        formatter: this.toNumString,
-        text: 'Cases'
-      },
-      {
-        sort: true,
-        headerAlign: 'right',
-        align: 'right',
-        dataField: 'deaths',
-        formatter: this.toNumString,
-        text: 'Deaths'
-      },
-      {
-        sort: true,
-        headerAlign: 'right',
-        align: 'right',
-        dataField: 'recovered',
-        formatter: this.toNumString,
-        text: 'Recovered'
-      },
-      {
-        sort: true,
-        headerAlign: 'right',
-        align: 'right',
-        dataField: 'active',
-        formatter: this.toNumString,
-        text: 'Active'
-      },
-      {
-        sort: true,
-        headerAlign: 'right',
-        align: 'right',
-        dataField: 'critical',
-        formatter: this.toNumString,
-        text: 'Critical'
-      },
-      {
-        sort: true,
-        headerAlign: 'right',
-        align: 'right',
-        dataField: 'tests',
-        formatter: this.toNumString,
-        text: 'Tests'
       }
-    ];
+    ));
+    columns.unshift(countryColumn);
 
-    const columnsToday = [
-      {
-        sort: true,
-        dataField: 'country',
-        text: 'Country'
-      },
-      {
-        sort: true,
-        headerAlign: 'right',
-        align: 'right',
-        dataField: 'todayCases',
-        formatter: this.toNumString,
-        text: 'Today Cases'
-      },
-      {
-        sort: true,
-        headerAlign: 'right',
-        align: 'right',
-        dataField: 'todayDeaths',
-        formatter: this.toNumString,
-        text: 'Today Deaths'
-      },
-    ];
-    
     const defaultSorted = [{
       dataField: 'cases',
       order: 'desc'
@@ -174,18 +125,17 @@ class WorldOverview extends Component {
             />
           </InputGroup>
           </Col>
-          <Col>           
-            <Form.Group controlId="formBasicCheckbox">
-            <label className="switch">
-              <input type="checkbox" onChange={this.toggleToday}/> 
-              <span className="slider"></span>
-            </label> <span>Show today</span>
-            </Form.Group> 
+          <Col>        
+            <ButtonGroup aria-label="Mode" onClick={this.modeChanged.bind(this)}>
+              <Button value='0'>all</Button>
+              <Button value='1'>today</Button>
+              <Button value='2'>/population</Button>
+            </ButtonGroup>   
             </Col>
           </Row>
           <Row float="center"  className="textAll">
             <Col>
-              <span>Select a country to see details</span>
+          <span>Select a country to see details</span>
             </Col>
           </Row>  
           <Row float="center">
@@ -193,13 +143,12 @@ class WorldOverview extends Component {
               <BootstrapTable 
                 keyField='country' 
                 data = {filteredCountries}
-                columns={ this.state.todayOnly? columnsToday: columns }  
+                columns={ columns }  
                 striped={true}
                 condensed={true}
                 hover={true}
                 bordered={ false }
                 classes={'worldTable'}
-                // pagination={ paginationFactory({ paginationSize: 20}) }
                 defaultSorted= {defaultSorted }/>
             </Col>
           </Row>
