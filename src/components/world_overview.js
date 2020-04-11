@@ -4,8 +4,8 @@ import { InputGroup,
   Container, 
   Row, 
   Col, 
-  ButtonGroup,
-  Button,
+  ToggleButtonGroup,
+  ToggleButton  ,
   Image} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import StatsHeader from './stats_header';
@@ -117,9 +117,8 @@ class WorldOverview extends Component {
             confirmed={this.state.soFar.cases}
             deaths={this.state.soFar.deaths}
             recovered={this.state.soFar.recovered}
-        />
-        <Row float="center" className="worldControlPane">
-    
+        />  
+        <Row float="left" className="worldControlPane">  
           <Col>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
@@ -134,16 +133,16 @@ class WorldOverview extends Component {
           </InputGroup>
           </Col>
           <Col>        
-            <ButtonGroup aria-label="Mode" size="sm" onClick={this.modeChanged.bind(this)}>
-              <Button value='0' variant="light">All</Button>
-              <Button value='1' variant="light">Today</Button>
-              <Button value='2' variant="light">/Million</Button>
-            </ButtonGroup>   
+            <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode " defaultValue={'0'}onClick={this.modeChanged.bind(this)}>
+              <ToggleButton value='0' variant="light">All</ToggleButton>
+              <ToggleButton value='1' variant="light">Today</ToggleButton>
+              <ToggleButton value='2' variant="light">/Million</ToggleButton>
+            </ToggleButtonGroup>   
             </Col>
           </Row>
           <Row float="center"  className="textAll">
             <Col>
-              <span>{modeDetailsConfig[this.state.mode || '0']} Select a country to see details</span>
+              <span>{modeDetailsConfig[this.state.mode || '0']} Select a country to see details.</span>
             </Col>
           </Row>  
           <Row float="center">

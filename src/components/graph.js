@@ -27,7 +27,7 @@ class Graph extends Component {
       return ( 
         <Plot
           data={this.props.graphData}
-          config = {{displayModeBar: false}}
+          config = {{displayModeBar: true, displaylogo: false}}
           layout={ {
             font:{size:6, color: "grey"}, 
             width: (w > 470 )? (w*.7): w,
