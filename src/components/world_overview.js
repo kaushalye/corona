@@ -145,7 +145,7 @@ class WorldOverview extends Component {
     return (
       <Container>
         <StatsHeader 
-            name=""
+            name="Global"
             img="/corona.png" 
             imgClass="globalImg" 
             confirmed={this.state.soFar.cases}
@@ -180,7 +180,7 @@ class WorldOverview extends Component {
             <Col>
               <span>Select a country to see details</span>
             </Col>
-          </Row>
+          </Row>  
           <Row float="center">
             <Col>
               <BootstrapTable 
