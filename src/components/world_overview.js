@@ -83,7 +83,10 @@ class WorldOverview extends Component {
     const columns = columnsConfig[this.state.mode || '0'].map(col =>  (
       {
         sort: true,
-        text: col.replace(/^\w/, c => c.toUpperCase()),
+        text: col
+                  .replace('PerOneMillion', '')
+                  .replace('today', '')
+                  .replace(/^\w/, c => c.toUpperCase()),
         dataField: col,
         formatter: this.toNumString,
         headerAlign: 'right',
@@ -97,6 +100,11 @@ class WorldOverview extends Component {
       order: 'desc'
     }];
 
+    const modeDetailsConfig = {
+      '0':'',
+      '1':'Showing data for today.',
+      '2':'Showing data per one million people.',
+    }
     const countriesToCompare = this.state.textfilter.split(',').map(str => str.trim().toLowerCase());
     const filteredCountries = this.props.countries.filter( c => (countriesToCompare.length > 1) ? countriesToCompare.includes(c.country.toLowerCase()): c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase()))
            
@@ -126,16 +134,16 @@ class WorldOverview extends Component {
           </InputGroup>
           </Col>
           <Col>        
-            <ButtonGroup aria-label="Mode" onClick={this.modeChanged.bind(this)}>
-              <Button value='0'>all</Button>
-              <Button value='1'>today</Button>
-              <Button value='2'>/population</Button>
+            <ButtonGroup aria-label="Mode" size="sm" onClick={this.modeChanged.bind(this)}>
+              <Button value='0' variant="light">All</Button>
+              <Button value='1' variant="light">Today</Button>
+              <Button value='2' variant="light">/Million</Button>
             </ButtonGroup>   
             </Col>
           </Row>
           <Row float="center"  className="textAll">
             <Col>
-          <span>Select a country to see details</span>
+              <span>{modeDetailsConfig[this.state.mode || '0']} Select a country to see details</span>
             </Col>
           </Row>  
           <Row float="center">
