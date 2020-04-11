@@ -106,6 +106,14 @@ class WorldOverview extends Component {
         dataField: 'critical',
         formatter: this.toNumString,
         text: 'Critical'
+      },
+      {
+        sort: true,
+        headerAlign: 'right',
+        align: 'right',
+        dataField: 'tests',
+        formatter: this.toNumString,
+        text: 'Tests'
       }
     ];
 
