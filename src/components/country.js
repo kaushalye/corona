@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import CountryGraph from './country_graph';
-import { Container, Row, Col, Form} from 'react-bootstrap';
+import { Container, Form} from 'react-bootstrap';
 class Country extends Component {
 
 

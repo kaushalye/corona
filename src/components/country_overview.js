@@ -37,8 +37,6 @@ class CountryOverview extends Component {
   }
 
   render() {
-    // const id = 'AU';
-
     const country = this.props.countries.filter(c => c.countryInfo.iso2 === this.props.iso2);
     const regions = this.state.regions;
     const hasMultipleStates = regions.length > 1;
@@ -75,7 +73,7 @@ class CountryOverview extends Component {
                     }
       
                     {hasMultipleStates &&
-                        <Container>
+                      <Container>
                         <Country regions={regions} />
                       </Container>
                     }
