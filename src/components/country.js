@@ -31,29 +31,18 @@ class Country extends Component {
 
     return (
       <Container>
-        <Row >
-          <Col className="form-inline">
-          <Form.Group>
-            <Form.Label>Criteria :  </Form.Label>
-            <Form.Control as="select"  value={this.state.selectedState}  onChange={this.handleChange}>
-              {Object.keys(data).map((v, i) => {
+      <Container className="stateInfo">
+        <Form.Control as="select" value={this.state.selectedState} onChange={this.handleChange}>
+            {Object.keys(data).map((v, i) => {
                   return  <option key={i} value={v} >{v}</option>
               })}
-            </Form.Control>
-          </Form.Group>
-          </Col>
-          
-        </Row>
-        <Row align="center">
-        {/* <Col>
-          <p>{JSON.stringify(data[this.state.selectedIndex])}</p>
-          </Col> */}
-            <Col> 
-              <CountryGraph title={this.state.selectedIndex} data={data[this.state.selectedIndex]}/>
-          </Col>
-        </Row>
+          </Form.Control>
+          <Container></Container>
       </Container>
-      
+      <Container>
+        <CountryGraph title={this.state.selectedIndex} data={data[this.state.selectedIndex]}/>
+      </Container>
+    </Container>
     );
   }
 }

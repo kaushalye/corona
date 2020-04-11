@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { InputGroup, FormControl, Form, Container, Row, Col, Image} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
 import StatsHeader from './stats_header';
 class WorldOverview extends Component {
   

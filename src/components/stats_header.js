@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import { InputGroup, FormControl, Form, Container, Row, Col, Image} from 'react-bootstrap';
+import {Container, Image} from 'react-bootstrap';
 import InfoCard from './info_card';
 
 class StatsHeader extends Component {

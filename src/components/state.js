@@ -24,30 +24,27 @@ class State extends Component {
 
   render() {
     return (
-      <Container className="statePane">
-        <Row align="center">
-          <Col className="form-inline">
-          <Form.Group>
-            <Form.Label >State:</Form.Label>
-            <Form.Control as="select" value={this.state.selectedState} onChange={this.handleChange}>
+      <Container>
+        <Container className="stateInfo">
+          <Form.Control as="select" value={this.state.selectedState} onChange={this.handleChange}>
               { this.props.regions.map((r, i) => {
                   return  <option key={i} value={r.state} >{r.state}</option>
               })}
-            </Form.Control>
-          </Form.Group>
-          </Col>
-        </Row>
-        <Row align="center">
-            <Col>
-              {this.props.regions
-                .filter(r =>  r.state === this.state.selectedState)
-                .map((region, i) => {
-                return <StateGraph key={i} region={region}/>;
-              })}
-          </Col>
-        </Row>
+          </Form.Control>
+          <Container className="stateDetails">
+              <span className="dot bginfo">12345</span>
+              <span className="dot bgdanger">34</span>
+              <span className="dot bgsuccess">345</span>
+          </Container>
+        </Container>
+        <Container>
+          {this.props.regions
+            .filter(r =>  r.state === this.state.selectedState)
+            .map((region, i) => {
+            return <StateGraph key={i} region={region}/>;
+          })}
+        </Container>
       </Container>
-      
     );
   }
 }
