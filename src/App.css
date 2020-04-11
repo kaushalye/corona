@@ -229,11 +229,10 @@ input:checked + .slider:before {
 }
 
 .stateDetails{
-  padding: 5px;
+  padding: 0px;
   display: flex;
   flex-direction: row ;
   justify-content: flex-start;
-
   vertical-align: middle;
 }
 .dot {
@@ -243,7 +242,7 @@ input:checked + .slider:before {
   margin: 0px 5px;
   height: 35px;
   width: 35px;
-  line-height: 35px;
+  line-height: 30px;
   border-radius: 50%;
   background-color: black;
   color:white;
