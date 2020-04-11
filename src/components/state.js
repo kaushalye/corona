@@ -13,14 +13,12 @@ class State extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount - country view');
     if (this.props.regions.length > 0 ) {
       this.setState({selectedState:this.props.regions[0].state});
     }
   }
 
   handleChange(e){
-    console.log( 'handleChange', e.target.value);
     this.setState({selectedState: e.target.value});
   }
 
@@ -33,7 +31,6 @@ class State extends Component {
             <Form.Label >State:</Form.Label>
             <Form.Control as="select" value={this.state.selectedState} onChange={this.handleChange}>
               { this.props.regions.map((r, i) => {
-                  console.log("state select");
                   return  <option key={i} value={r.state} >{r.state}</option>
               })}
             </Form.Control>

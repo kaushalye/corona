@@ -65,6 +65,7 @@ class App extends Component {
                        />
               )}/>
           <Redirect from="/corona" to="/corona/world" />
+          <Redirect from="/" to="/corona/world" />
         </Switch>
         <Container className="footer fixed-bottom center">
           <span>© malindoz.com   - All rights reserved</span>

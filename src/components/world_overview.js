@@ -32,7 +32,6 @@ class WorldOverview extends Component {
     fetch( 'https://corona.lmao.ninja/all')
     .then(res => res.json())
     .then((data) => {
-      console.log('fetched from corona.lmao.ninja all');
       this.setState({ 
         soFar: data,
         lastUpdated: data.updated,
@@ -141,13 +140,11 @@ class WorldOverview extends Component {
 
     const countriesToCompare = this.state.textfilter.split(',').map(str => str.trim().toLowerCase());
     const filteredCountries = this.props.countries.filter( c => (countriesToCompare.length > 1) ? countriesToCompare.includes(c.country.toLowerCase()): c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase()))
-    
-    console.log('advanced', filteredCountries);
            
     return (
       <Container>
         <StatsHeader 
-            name="World"
+            name=""
             img="/corona.png" 
             imgClass="globalImg" 
             confirmed={this.state.soFar.cases}
@@ -175,19 +172,19 @@ class WorldOverview extends Component {
               <input type="checkbox" onChange={this.toggleToday}/> 
               <span className="slider"></span>
             </label> <span>Show today</span>
-              {/* <Form.Check type="checkbox" id="switch" label="Today" onChange={this.toggleToday} /> */}
             </Form.Group> 
             
             </Col>
           </Row>
           <Row float="center"  className="textAll">
             <Col>
-    <span>Select a country to see details</span>
+              <span>Select a country to see details</span>
             </Col>
           </Row>
           <Row float="center">
             <Col>
-              <BootstrapTable keyField='country' 
+              <BootstrapTable 
+                keyField='country' 
                 data = {filteredCountries}
                 columns={ this.state.todayOnly? columnsToday: columns }  
                 striped={true}
@@ -197,6 +194,9 @@ class WorldOverview extends Component {
                 classes={'worldTable'}
                 defaultSorted= {defaultSorted }/>
             </Col>
+          </Row>
+          <Row>
+            <Col className="dataSource">Data source: <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank" rel="noopener noreferrer" >Johns Hopkins University</a></Col>
           </Row>
       </Container>
     );

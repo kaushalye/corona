@@ -10,14 +10,16 @@ class StatsHeader extends Component {
 
   render() {
       return ( 
-        <Container>  
+        <Container >  
             <Row className="countryHeader" >
-              <Col>
-                <Image src={this.props.img}  className={this.props.imgClass} />
-                <span className="countryName">{this.props.name} </span> 
+              <Col xs={1}>
+              <Image src={this.props.img}  className={this.props.imgClass} />
               </Col>
+              {this.props.name && <Col xs={1}>
+                <span className="countryName">{this.props.name} </span> 
+              </Col>}
               <Col align="right"> 
-                <InfoCard class="cinfo" title="Confirmed" text={this.props.confirmed}  />  
+                <InfoCard class="cinfo" title="Cases" text={this.props.confirmed}  />  
                 <InfoCard class="cdanger" title="Deaths" text={this.props.deaths} /> 
                 <InfoCard class="csuccess" title="Recovered" text={this.props.recovered} /> 
               </Col>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Tabs, Tab, Container, Row, Col } from 'react-bootstrap';
-import InfoCard from './info_card';
+import {Container, Row, Col } from 'react-bootstrap';
 import State from './state';
 import Country from './country';
 import StateGraph from './state_graph';
@@ -10,9 +9,6 @@ class CountryOverview extends Component {
 
   constructor(props) {
     super(props);
-    console.log('props');
-    console.log(props);
-
     this.state = {
       regions: [],
     };
@@ -20,11 +16,9 @@ class CountryOverview extends Component {
 
   componentDidMount() {
     const url = 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=' + this.props.iso2
-    console.log('fetching ' + url)
     fetch(url)
       .then(res => res.json())
       .then((data) => {
-        console.log('fetched from wuhan-coronavirus-api');
         const regions = data.map(r => {
           const ts = Object.keys(r.timeseries);
           return {
@@ -37,8 +31,6 @@ class CountryOverview extends Component {
             recovered: ts.map(t => r.timeseries[t].recovered),
           };
         });
-        console.log('update state for regions', regions.length);
-        console.log(regions);
         return this.setState({ regions: regions });
       })
       .catch(console.log)
