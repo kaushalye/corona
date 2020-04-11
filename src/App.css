@@ -200,3 +200,9 @@ input:checked + .slider:before {
   color: grey;
   height: 40px;
 }
+
+.worldTable th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+}

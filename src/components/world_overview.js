@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { InputGroup, FormControl, Form, Container, Row, Col, Image} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 import StatsHeader from './stats_header';
 class WorldOverview extends Component {
   
@@ -173,7 +174,6 @@ class WorldOverview extends Component {
               <span className="slider"></span>
             </label> <span>Show today</span>
             </Form.Group> 
-            
             </Col>
           </Row>
           <Row float="center"  className="textAll">
@@ -192,6 +192,7 @@ class WorldOverview extends Component {
                 hover={true}
                 bordered={ false }
                 classes={'worldTable'}
+                // pagination={ paginationFactory({ paginationSize: 20}) }
                 defaultSorted= {defaultSorted }/>
             </Col>
           </Row>
