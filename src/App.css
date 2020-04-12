@@ -210,6 +210,14 @@ html, body {
   border-width: 2px;
 }
 
+.helpText{
+  color: brown;
+}
+
 .countryComparePane{
   background-color: white;
+}
+
+.compareTablePane{
+  max-width: 500px;
 }

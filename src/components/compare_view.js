@@ -40,9 +40,11 @@ class CompareView extends Component {
 
   componentDidMount() {
     const params = queryString.parse(this.props.location.search);
-    const countryCodes = (params.countries || '').split(',').map(code=> code.trim());
+    const countryCodes = (params.countries || '')
+      .split(',')
+      .map(code=> code.trim().toUpperCase());
 
-    return countryCodes.slice(0, 3).map(this.getData);
+    return countryCodes.slice(0, 5).map(this.getData);
   }
 
   render() {
@@ -72,7 +74,7 @@ class CompareView extends Component {
                 <span className="cardText">&nbsp;{countriesText}</span>
               </Container> 
           </Container>  
-
+          <Container className="compareTablePane">  
           <Table hover responsive variant="dark" size="sm" >
             <thead>
               <tr>
@@ -99,6 +101,7 @@ class CompareView extends Component {
 
             </tbody>
           </Table>
+          </Container>  
           <CountryGraph title='Confirmed' data={data['Confirmed']}/>
           <CountryGraph title='Deaths' data={data['Deaths']}/>
           <CountryGraph title='Recovered' data={data['Recovered']}/>

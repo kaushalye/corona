@@ -14,9 +14,10 @@ import { InputGroup,
 import BootstrapTable from 'react-bootstrap-table-next';
 import StatsHeader from './stats_header';
 import StringUtil from '../lib/string_util';
+const DEFAULT_FILTER = "usa, italy";
 
 class WorldOverview extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -39,11 +40,20 @@ class WorldOverview extends Component {
   }
 
   compare(e) {
+    console.log('filteredCountries');
+    let selected = [];
+    if (this.state.countriesToCompare.length > 1) {
+      selected = this.state.countriesToCompare 
+    } else {
+
+      selected = DEFAULT_FILTER.split(',').map(s => s.trim());
+    }
     const codes = this.props.countries
-      .filter(c => this.state.countriesToCompare.includes(
+      .filter(c => selected.includes(
         c.country.toLowerCase()
       ))
       .map(c => c.countryInfo.iso2);
+
     return this.props.history.push('/corona/compare?countries='+codes.join(','));  
   }
 
@@ -118,8 +128,8 @@ class WorldOverview extends Component {
 
     const modeDetailsConfig = {
       '0':'',
-      '1':'Showing data for today.',
-      '2':'Showing data per one million people.',
+      '1':' Showing data for today.',
+      '2':' Showing data per one million people.',
     }
 
     const filteredCountries = this.props.countries
@@ -128,7 +138,7 @@ class WorldOverview extends Component {
         this.state.countriesToCompare.includes(c.country.toLowerCase()): 
         c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase())
     );
-           
+
     return (
       <Container>
         <StatsHeader 
@@ -146,7 +156,7 @@ class WorldOverview extends Component {
               <InputGroup.Text id="basic-addon1" >Filter</InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
-              placeholder="usa, italy"
+              placeholder={DEFAULT_FILTER}
               aria-label="Filter"
               aria-describedby="basic-addon1"
               onInput={this.handleChange}
@@ -154,14 +164,16 @@ class WorldOverview extends Component {
           </InputGroup>
           </Col>
           <Col>
-            <Button variant="primary" disabled={this.state.countriesToCompare.length < 2} onClick={this.compare.bind(this)}>Compare</Button>
+            <Button variant="primary" onClick={this.compare.bind(this)}>Compare</Button>
             </Col>
           </Row>
           <Row className="textAll">
           <Col xs={7}>
-            <span className="helpText">{modeDetailsConfig[this.state.mode || '0']}<br/>Select a country to see details.</span >
+            <span className="helpText"> Select a country to see details.</span >
+            <span className="helpText">{modeDetailsConfig[this.state.mode || '0']}</span >  
           </Col>
-          <Col xs={5} align="right">        
+          <Col xs={5} align="right">      
+            
             <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode " defaultValue={'0'} onClick={this.modeChanged.bind(this)}>
               <ToggleButton value='0' variant="light">All</ToggleButton>
               <ToggleButton value='1' variant="light">Today</ToggleButton>

@@ -24,7 +24,6 @@ class App extends Component {
     fetch( 'https://corona.lmao.ninja/countries?sort=country')
     .then(res => res.json())
     .then((data) => {
-      console.log('fetched from corona.lmao.ninja');
       this.setState({ 
         countries: data,
       });

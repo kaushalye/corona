@@ -53,7 +53,7 @@ class Graph extends Component {
         <Plot
           
           data={graphData}
-          config = {{displayModeBar: false, staticPlot: true, displaylogo: false}}
+          config = {{displayModeBar: false, displaylogo: false}}
           layout={ {
             title,
             xaxis: {
