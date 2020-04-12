@@ -124,24 +124,25 @@ class WorldOverview extends Component {
               <InputGroup.Text id="basic-addon1" >Filter</InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
-              placeholder="usa, uk, italy"
+              placeholder="usa, italy"
               aria-label="Filter"
               aria-describedby="basic-addon1"
               onInput={this.handleChange}
             />
           </InputGroup>
           </Col>
-          <Col>        
+
+          </Row>
+          <Row className="textAll">
+          <Col xs={8}>
+              <span className="helpText">{modeDetailsConfig[this.state.mode || '0']} Select a country to see details.</span >
+            </Col>
+          <Col xs={4} align="right">        
             <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode " defaultValue={'0'}onClick={this.modeChanged.bind(this)}>
               <ToggleButton value='0' variant="light">All</ToggleButton>
               <ToggleButton value='1' variant="light">Today</ToggleButton>
               <ToggleButton value='2' variant="light">/Million</ToggleButton>
             </ToggleButtonGroup>   
-            </Col>
-          </Row>
-          <Row float="center"  className="textAll">
-            <Col>
-              <span>{modeDetailsConfig[this.state.mode || '0']} Select a country to see details.</span>
             </Col>
           </Row>  
           <Row float="center">

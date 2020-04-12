@@ -209,3 +209,7 @@ html, body {
   border-style: solid;
   border-width: 2px;
 }
+
+.helpText{
+  padding: 0px 5px;
+}
