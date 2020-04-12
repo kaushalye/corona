@@ -184,6 +184,17 @@ html, body {
   justify-content: flex-start;
   vertical-align: middle;
 }
+
+.countrySummary{
+  display: flex;
+  flex-direction: row ;
+  justify-content: flex-start;
+  vertical-align: middle;
+  background-color:white;
+  color: #2C3E50 ;
+  padding: 5px 5px;
+}
+
 .dot {
   font-size: 10px;
   text-align: center;

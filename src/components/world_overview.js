@@ -9,6 +9,8 @@ import { InputGroup,
   Image} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import StatsHeader from './stats_header';
+import StringUtil from '../lib/string_util';
+
 class WorldOverview extends Component {
   
   constructor(props) {
@@ -51,10 +53,7 @@ class WorldOverview extends Component {
   }
 
   toNumString(num) {
-    if (!num) {
-      return "0";
-    }
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return StringUtil.formatNumber(num);
   }
 
   countryFormatter(cell, row, rowIndex, formatExtraData)  {

@@ -4,6 +4,7 @@ import State from './state';
 import Country from './country';
 import StateGraph from './state_graph';
 import StatsHeader from './stats_header';
+import CountrySummary from './country_summary';
 
 class CountryOverview extends Component {
 
@@ -47,12 +48,27 @@ class CountryOverview extends Component {
           {country.map((c, i) => {
             return (
               <StatsHeader 
-                name={country.map(c => c.country).join(',')}
-                img={country.map(c => c.countryInfo.flag).join(',')} 
+                name={c.country}
+                img={c.countryInfo && c.countryInfo.flag} 
                 imgClass="flagImg" 
                 confirmed={c.cases}
                 deaths={c.deaths}
                 recovered={c.recovered}
+              />
+            )
+          })}
+                
+          {country.map((c, i) => {
+            return (
+              <CountrySummary 
+                critical={c.critical}
+                active={c.active}
+                tests={c.tests}
+                todayCases={c.todayCases}
+                todayDeaths={c.todayDeaths}
+                casesPerOneMillion={c.casesPerOneMillion}
+                deathsPerOneMillion={c.deathsPerOneMillion}
+                testsPerOneMillion={c.testsPerOneMillion}
               />
             )
           })}
