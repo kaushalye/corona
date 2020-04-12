@@ -3,7 +3,6 @@ import CountryGraph from './country_graph';
 import { Container, Form} from 'react-bootstrap';
 class Country extends Component {
 
-
   constructor(props) {
     super(props);
     this.state = {

@@ -3,6 +3,8 @@ import './App.css';
 import CountryOverview from './components/country_overview';
 import { Container, Nav, Navbar} from 'react-bootstrap';
 import WorldOverview from './components/world_overview'
+import CompareView from './components/compare_view';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,7 +18,6 @@ class App extends Component {
     countries: [],
     regions: [],
   }
-
 
   componentDidMount() {
 
@@ -33,6 +34,7 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <Router>
       <Container className="full-height">
@@ -50,7 +52,7 @@ class App extends Component {
         </Nav>
         <Nav>
           <Nav.Item>      
-    <span className="pageTitle">COVID-19 statistics</span>
+            <span className="pageTitle">COVID-19 statistics</span>
           </Nav.Item>
         </Nav>
       </Navbar>
@@ -58,6 +60,10 @@ class App extends Component {
           <Route path="/corona/world">
             <WorldOverview countries={this.state.countries} />
           </Route>
+          {/* <Route path="/corona/compare">
+            <CompareView/>
+          </Route> */}
+          <Route path="/corona/compare" component={CompareView} />
           <Route path="/corona/country/:id" render={({match}) => (
                        <CountryOverview 
                        iso2={match.params.id}

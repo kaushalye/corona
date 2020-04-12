@@ -44,7 +44,6 @@ class CountryOverview extends Component {
     
     return (
         <Container className="countryPane">
-
           {country.map((c, i) => {
             return (
               <StatsHeader 

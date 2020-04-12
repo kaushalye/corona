@@ -9,6 +9,8 @@ class Graph extends Component {
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
   componentDidMount() {
+    console.log('Graph>>>');
+    console.log(this.props.graphData);
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
   }
@@ -24,11 +26,14 @@ class Graph extends Component {
   render() {
     const w = this.state.width;
     const h = this.state.height;
+    const title = this.props.title;
       return ( 
         <Plot
+          
           data={this.props.graphData}
           config = {{displayModeBar: true, displaylogo: false}}
           layout={ {
+            title,
             font:{size:6, color: "grey"}, 
             width: (w > 470 )? (w*.7): w,
             height: h * 0.5,
