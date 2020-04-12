@@ -158,10 +158,10 @@ class WorldOverview extends Component {
             </Col>
           </Row>
           <Row className="textAll">
-          <Col xs={8}>
-            <span className="helpText">{modeDetailsConfig[this.state.mode || '0']} Select a country to see details.</span >
+          <Col xs={7}>
+            <span className="helpText">{modeDetailsConfig[this.state.mode || '0']}<br/>Select a country to see details.</span >
           </Col>
-          <Col xs={4} align="right">        
+          <Col xs={5} align="right">        
             <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode " defaultValue={'0'} onClick={this.modeChanged.bind(this)}>
               <ToggleButton value='0' variant="light">All</ToggleButton>
               <ToggleButton value='1' variant="light">Today</ToggleButton>
