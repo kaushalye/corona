@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Row, Col } from 'react-bootstrap';
+import {Container, Image } from 'react-bootstrap';
 import queryString from 'query-string';
 import CountryGraph from './country_graph';
 
@@ -43,11 +43,12 @@ class CompareView extends Component {
     const params = queryString.parse(this.props.location.search);
     console.log(params);
     const countryCodes = (params.countries || '').split(',').map(code=> code.trim());//['AU,LK'];
-    return countryCodes.map(this.getData);
+    return countryCodes.slice(0, 3).map(this.getData);
   }
 
   render() {
-    
+    console.log('this.state.countries');
+    console.log(this.state.countries);
     const data = {
       Confirmed: this.state.countries.map(c => {
         return {state: c.country, data: c.confirmed, ts: c.ts}
@@ -59,11 +60,21 @@ class CompareView extends Component {
         return {state: c.country, data: c.recovered, ts: c.ts}
       }),
     }
-    console.log('CompareView .graph data');
-    console.log(data);
+    // console.log('CompareView .graph data');
+    // console.log(data);
+
+    const countriesText = this.state.countries.map(c => c.country).join(' vs ');
     return (
         <Container className="countryComparePane">
-          <Container></Container>
+          
+          <Container className="countryHeader">  
+              <Container align="left">  
+                <Image src={this.props.img}  className={this.props.imgClass} />
+                <span className="cardText">{countriesText}</span>
+              </Container> 
+          </Container>  
+
+
           <CountryGraph title='Confirmed' data={data['Confirmed']}/>
           <CountryGraph title='Deaths' data={data['Deaths']}/>
           <CountryGraph title='Recovered' data={data['Recovered']}/>

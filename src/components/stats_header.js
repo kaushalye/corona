@@ -10,7 +10,7 @@ class StatsHeader extends Component {
 
   render() {
       return (
-        <Container className="countryHeader2">  
+        <Container className="countryHeader">  
           <Container align="left">  
             <Image src={this.props.img}  className={this.props.imgClass} />
             {this.props.name && 

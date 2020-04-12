@@ -127,7 +127,7 @@ class WorldOverview extends Component {
       c => (this.state.countriesToCompare.length > 1) ? 
         this.state.countriesToCompare.includes(c.country.toLowerCase()): 
         c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase())
-    )
+    );
            
     return (
       <Container>
@@ -154,7 +154,7 @@ class WorldOverview extends Component {
           </InputGroup>
           </Col>
           <Col>
-            <Button variant="primary" disabled={filteredCountries.length < 2} onClick={this.compare.bind(this)}>Compare</Button>
+            <Button variant="primary" disabled={this.state.countriesToCompare.length < 2} onClick={this.compare.bind(this)}>Compare</Button>
             </Col>
           </Row>
           <Row className="textAll">
