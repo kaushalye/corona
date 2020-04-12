@@ -9,6 +9,7 @@ class CompareView extends Component {
     super(props);
     this.state = {
       countries: [],
+      lastupdate:'',
     };
     this.getData = this.getData.bind(this);
   }
@@ -31,11 +32,16 @@ class CompareView extends Component {
     });
     if (countries.length > 0) {
       this.state.countries.push(countries[0]);
+      // This is required to wake up render method
+      this.setState({lastupdate:countries[0].lastupdate});
     }
   }
 
   componentDidMount() {
+    console.log('CompareView.componentDidMount');
+    console.log(this.props);
     const params = queryString.parse(this.props.location.search);
+    console.log(params);
     const countryCodes = (params.countries || '').split(',').map(code=> code.trim());//['AU,LK'];
     return countryCodes.map(this.getData);
   }

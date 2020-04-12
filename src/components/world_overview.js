@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
+import {
+  withRouter
+} from 'react-router-dom'
 import { InputGroup, 
   FormControl,
   Container, 
   Row, 
   Col, 
   ToggleButtonGroup,
-  ToggleButton  ,
+  ToggleButton,
+  Button,
   Image} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import StatsHeader from './stats_header';
@@ -25,6 +29,7 @@ class WorldOverview extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.countryFormatter = this.countryFormatter.bind(this);
     this.toNumString = this.toNumString.bind(this);
+    this.compare = this.compare.bind(this);
   }
 
   modeChanged(e) {
@@ -32,9 +37,21 @@ class WorldOverview extends Component {
       mode: e.target.value,
     });
   }
+
+  compare(e) {
+    const codes = this.props.countries
+      .filter(c => this.state.countriesToCompare.includes(c.country.toLowerCase()))
+      .map(c => c.countryInfo.iso2);
+    
+    console.log('compare ', codes);
+    return this.props.history.push('/corona/compare?countries='+codes.join(','));  
+  }
+
   handleChange(e){
+    const countriesToCompare = e.target.value.split(',').map(str => str.trim().toLowerCase());
     this.setState({
       textfilter: e.target.value,
+      countriesToCompare
     });
   }
 
@@ -104,8 +121,13 @@ class WorldOverview extends Component {
       '1':'Showing data for today.',
       '2':'Showing data per one million people.',
     }
-    const countriesToCompare = this.state.textfilter.split(',').map(str => str.trim().toLowerCase());
-    const filteredCountries = this.props.countries.filter( c => (countriesToCompare.length > 1) ? countriesToCompare.includes(c.country.toLowerCase()): c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase()))
+
+    const filteredCountries = this.props.countries
+    .filter( 
+      c => (this.state.countriesToCompare.length > 1) ? 
+        this.state.countriesToCompare.includes(c.country.toLowerCase()): 
+        c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase())
+    )
            
     return (
       <Container>
@@ -131,14 +153,16 @@ class WorldOverview extends Component {
             />
           </InputGroup>
           </Col>
-
+          <Col>
+            <Button variant="primary" disabled={filteredCountries.length < 2} onClick={this.compare.bind(this)}>Compare</Button>
+            </Col>
           </Row>
           <Row className="textAll">
           <Col xs={8}>
-              <span className="helpText">{modeDetailsConfig[this.state.mode || '0']} Select a country to see details.</span >
-            </Col>
+            <span className="helpText">{modeDetailsConfig[this.state.mode || '0']} Select a country to see details.</span >
+          </Col>
           <Col xs={4} align="right">        
-            <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode " defaultValue={'0'}onClick={this.modeChanged.bind(this)}>
+            <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode " defaultValue={'0'} onClick={this.modeChanged.bind(this)}>
               <ToggleButton value='0' variant="light">All</ToggleButton>
               <ToggleButton value='1' variant="light">Today</ToggleButton>
               <ToggleButton value='2' variant="light">/Million</ToggleButton>
@@ -167,4 +191,4 @@ class WorldOverview extends Component {
   }
 }
 
-export default WorldOverview;
+export default withRouter(WorldOverview);
