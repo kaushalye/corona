@@ -4,9 +4,6 @@ import {Container, Image} from 'react-bootstrap';
 import InfoCard from './info_card';
 
 class StatsHeader extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
       return (

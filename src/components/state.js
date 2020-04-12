@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import StateGraph from './state_graph';
-import { Container, Row, Col, Form, InputGroup} from 'react-bootstrap';
+import { Container, Form} from 'react-bootstrap';
 class State extends Component {
 
   constructor(props) {
     super(props);
-    console.log('constructor...');
     this.state = {
       selectedState: '',
       stateLatest: {
@@ -35,7 +34,7 @@ class State extends Component {
       const latest = {
         cases, deaths, recovered
       }
-      this.setState({stateLatest: latest});
+      return this.setState({stateLatest: latest});
     })
   }
 
@@ -44,7 +43,6 @@ class State extends Component {
   }
 
   render() {
-    console.log('render...');
     return (
       <Container>
           <Container className="stateInfo">

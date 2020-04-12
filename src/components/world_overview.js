@@ -40,10 +40,10 @@ class WorldOverview extends Component {
 
   compare(e) {
     const codes = this.props.countries
-      .filter(c => this.state.countriesToCompare.includes(c.country.toLowerCase()))
+      .filter(c => this.state.countriesToCompare.includes(
+        c.country.toLowerCase()
+      ))
       .map(c => c.countryInfo.iso2);
-    
-    console.log('compare ', codes);
     return this.props.history.push('/corona/compare?countries='+codes.join(','));  
   }
 

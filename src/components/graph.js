@@ -9,8 +9,6 @@ class Graph extends Component {
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
   componentDidMount() {
-    console.log('Graph>>>');
-    console.log(this.props.graphData);
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
   }
@@ -27,18 +25,45 @@ class Graph extends Component {
     const w = this.state.width;
     const h = this.state.height;
     const title = this.props.title;
-      return ( 
+    const selectorOptions = {
+        buttons: [{
+            step: 'day',
+            stepmode: 'backward',
+            count: 7,
+            label: '1w'
+        }, {
+            step: 'month',
+            stepmode: 'backward',
+            count: 1,
+            label: '1m'
+        }, {
+            step: 'all',
+        }],
+    };
+    const graphData = this.props.graphData.map(trace => {
+      return {
+        name:trace.name,
+        y: trace.y,
+        type: trace.type,
+        x: trace.x.map(val => new Date(val)),
+      }
+    })
+    
+    return ( 
         <Plot
           
-          data={this.props.graphData}
-          config = {{displayModeBar: true, displaylogo: false}}
+          data={graphData}
+          config = {{displayModeBar: false, staticPlot: true, displaylogo: false}}
           layout={ {
             title,
+            xaxis: {
+              showgrid: false,
+              rangeselector: selectorOptions,
+            },
             font:{size:6, color: "grey"}, 
             width: (w > 470 )? (w*.7): w,
             height: h * 0.5,
             padding: {l:0, t:0, r:0, b:0},
-            xaxis: {showgrid:false},
             autosize:true,
             paper_bgcolor: 'rgba(0,0,0,0)',
             plot_bgcolor: 'rgba(0,0,0,0)',

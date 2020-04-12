@@ -22,14 +22,14 @@ class CompareView extends Component {
     const countries = data.map(r => {
       const ts = Object.keys(r.timeseries);
       return {
-        state: r.provincestate,
-        country: r.countryregion,
-        iso2: r.countrycode ? r.countrycode.iso2 : '',
-        ts: ts,
-        confirmed: ts.map(t => r.timeseries[t].confirmed),
-        deaths: ts.map(t => r.timeseries[t].deaths),
-        recovered: ts.map(t => r.timeseries[t].recovered),
-      };
+          state: r.provincestate,
+          country: r.countryregion,
+          iso2: r.countrycode ? r.countrycode.iso2 : '',
+          ts: ts,
+          confirmed: ts.map(t => r.timeseries[t].confirmed),
+          deaths: ts.map(t => r.timeseries[t].deaths),
+          recovered: ts.map(t => r.timeseries[t].recovered),
+        };
     });
     if (countries.length > 0) {
       this.state.countries.push(countries[0]);
@@ -39,17 +39,13 @@ class CompareView extends Component {
   }
 
   componentDidMount() {
-    console.log('CompareView.componentDidMount');
-    console.log(this.props);
     const params = queryString.parse(this.props.location.search);
-    console.log(params);
-    const countryCodes = (params.countries || '').split(',').map(code=> code.trim());//['AU,LK'];
+    const countryCodes = (params.countries || '').split(',').map(code=> code.trim());
+
     return countryCodes.slice(0, 3).map(this.getData);
   }
 
   render() {
-    console.log('this.state.countries');
-    console.log(this.state.countries);
     const data = {
       Confirmed: this.state.countries.map(c => {
         return {state: c.country, data: c.confirmed, ts: c.ts}
@@ -65,10 +61,8 @@ class CompareView extends Component {
     const countriesText = this.state.countries.map(c => c.country).join(' vs ');
     return (
         <Container className="countryComparePane">
-          
           <Container className="countryHeader">  
-              <Container align="left">  
-
+              <Container align="left">
               {this.state.countries.map(c => {
                 const imgSrc=`https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${c.iso2.toLowerCase()}.png`;
                 return (

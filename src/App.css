@@ -210,5 +210,6 @@ html, body {
   border-width: 2px;
 }
 
-.helpText{
+.countryComparePane{
+  background-color: white;
 }

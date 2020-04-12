@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import {Container, Image, Row, Col} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import StringUtil from '../lib/string_util';
 
 class CountrySummary extends Component {
