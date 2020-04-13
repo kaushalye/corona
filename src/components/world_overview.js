@@ -31,6 +31,7 @@ class WorldOverview extends Component {
     this.countryFormatter = this.countryFormatter.bind(this);
     this.toNumString = this.toNumString.bind(this);
     this.compare = this.compare.bind(this);
+    this.createColumns = this.createColumns.bind(this);
   }
 
   modeChanged(e) {
@@ -93,7 +94,7 @@ class WorldOverview extends Component {
     );
   }
 
-  render() {
+  createColumns() {
     const countryColumn = {
       sort: true,
       dataField: 'country',
@@ -119,7 +120,14 @@ class WorldOverview extends Component {
         align: 'right',
       }
     ));
+    // Add country column at the begning
     columns.unshift(countryColumn);
+
+    return columns;
+  }
+
+  render() {
+    const columns = this.createColumns();
 
     const defaultSorted = [{
       dataField: 'cases',
