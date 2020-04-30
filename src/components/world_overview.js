@@ -32,6 +32,7 @@ class WorldOverview extends Component {
     this.toNumString = this.toNumString.bind(this);
     this.compare = this.compare.bind(this);
     this.createColumns = this.createColumns.bind(this);
+    this.fetchWorld = this.fetchWorld.bind(this);
   }
 
   modeChanged(e) {
@@ -66,9 +67,8 @@ class WorldOverview extends Component {
     });
   }
 
-  componentDidMount() {
-
-    fetch( 'https://corona.lmao.ninja/all')
+  fetchWorld() {
+    fetch( 'https://corona.lmao.ninja/v2/all')
     .then(res => res.json())
     .then((data) => {
       this.setState({ 
@@ -77,7 +77,10 @@ class WorldOverview extends Component {
       });
     })
     .catch(console.log)
+  }
 
+  componentDidMount() {
+    this.fetchWorld();
   }
 
   toNumString(num) {

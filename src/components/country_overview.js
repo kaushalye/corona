@@ -5,6 +5,7 @@ import Country from './country';
 import StateGraph from './state_graph';
 import StatsHeader from './stats_header';
 import CountrySummary from './country_summary';
+import DistrictView from './district_view';
 
 class CountryOverview extends Component {
 
@@ -14,6 +15,8 @@ class CountryOverview extends Component {
       regions: [],
     };
   }
+
+
 
   componentDidMount() {
     const url = 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=' + this.props.iso2
@@ -92,6 +95,9 @@ class CountryOverview extends Component {
                         <Country regions={regions} />
                       </Container>
                     }
+                    <Container>
+                      <DistrictView iso2={this.props.iso2}/>
+                    </Container>
                   </Col>
                 </Row>
         </Container>

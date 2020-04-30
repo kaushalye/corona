@@ -66,7 +66,7 @@ class CompareView extends Component {
           <Container className="countryHeader">  
               <Container align="left">
               {this.state.countries.map(c => {
-                const imgSrc=`https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${c.iso2.toLowerCase()}.png`;
+                const imgSrc=`https://corona.lmao.ninja/assets/img/flags/${c.iso2.toLowerCase()}.png`;
                 return (
                   <Image src={imgSrc} className="flagImg"/> 
                 );
@@ -87,7 +87,7 @@ class CompareView extends Component {
             </thead>
             <tbody>
               {this.state.countries.map(c => {
-                const imgSrc=`https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/${c.iso2.toLowerCase()}.png`;
+                const imgSrc=`https://corona.lmao.ninja/assets/img/flags/${c.iso2.toLowerCase()}.png`;
                 return (
                   <tr>
                     <td><Image className="flagImg" src={imgSrc}></Image></td>

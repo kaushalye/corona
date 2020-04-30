@@ -221,3 +221,7 @@ html, body {
 .compareTablePane{
   max-width: 500px;
 }
+
+.districtView{
+  width: 80%;
+}
