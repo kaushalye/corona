@@ -14,7 +14,13 @@ import { InputGroup,
 import BootstrapTable from 'react-bootstrap-table-next';
 import StatsHeader from './stats_header';
 import StringUtil from '../lib/string_util';
+import queryString from 'query-string';
+
 const DEFAULT_FILTER = "usa, italy";
+const MODE_ALL = 'all';
+const MODE_TODAY = 'today';
+const MODE_MIL = 'mil';
+const MODE_TESTS = 'tests';
 
 class WorldOverview extends Component {
 
@@ -22,7 +28,7 @@ class WorldOverview extends Component {
     super(props);
     this.state = {
       textfilter: '',
-      mode: '0',
+      mode: MODE_ALL,
       countriesToCompare: [],
       soFar: {},
     };
@@ -79,8 +85,15 @@ class WorldOverview extends Component {
     .catch(console.log)
   }
 
+
   componentDidMount() {
     this.fetchWorld();
+    const params = queryString.parse(this.props.location.search);
+    console.log('params.mode');
+    console.log(params.mode);
+    this.setState({
+      mode: params.mode || MODE_ALL,
+    });
   }
 
   toNumString(num) {
@@ -105,12 +118,14 @@ class WorldOverview extends Component {
       text: 'Country'
     };
 
-    const columnsConfig = {
-      '0': ['cases', 'deaths', 'recovered', 'active', 'critical', 'tests', ],
-      '1': ['todayCases', 'todayDeaths', ],
-      '2': ['casesPerOneMillion', 'deathsPerOneMillion', 'testsPerOneMillion',],
-    };
-    const columns = columnsConfig[this.state.mode || '0'].map(col =>  (
+    const columnsConfig = {};
+    columnsConfig[MODE_ALL] = ['cases', 'deaths', 'recovered', 'active', 'critical', 'tests', ];
+    columnsConfig[MODE_TODAY] = ['todayCases', 'todayDeaths', ];
+    columnsConfig[MODE_MIL] = ['casesPerOneMillion', 'deathsPerOneMillion', 'testsPerOneMillion',];
+
+    console.log('this.state.mode');
+    console.log(this.state.mode);
+    const columns = columnsConfig[this.state.mode || MODE_ALL].map(col =>  (
       {
         sort: true,
         text: col
@@ -137,11 +152,10 @@ class WorldOverview extends Component {
       order: 'desc'
     }];
 
-    const modeDetailsConfig = {
-      '0':'',
-      '1':' Showing data for today.',
-      '2':' Showing data per one million people.',
-    }
+    const modeDetailsConfig = {}
+    modeDetailsConfig[MODE_ALL] = '';
+    modeDetailsConfig[MODE_TODAY] = ' Showing data for today.';
+    modeDetailsConfig[MODE_MIL] = ' Showing data per one million people.';
 
     const filteredCountries = this.props.countries
     .filter( 
@@ -181,14 +195,14 @@ class WorldOverview extends Component {
           <Row className="textAll">
           <Col xs={7}>
             <span className="helpText"> Select a country to see details.</span >
-            <span className="helpText">{modeDetailsConfig[this.state.mode || '0']}</span >  
+            <span className="helpText">{modeDetailsConfig[this.state.mode || MODE_ALL]}</span >  
           </Col>
           <Col xs={5} align="right">      
             
-            <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode " defaultValue={'0'} onClick={this.modeChanged.bind(this)}>
-              <ToggleButton value='0' variant="light">All</ToggleButton>
-              <ToggleButton value='1' variant="light">Today</ToggleButton>
-              <ToggleButton value='2' variant="light">/Million</ToggleButton>
+            <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode " defaultValue={MODE_ALL} onClick={this.modeChanged.bind(this)}>
+              <ToggleButton value={MODE_ALL} variant="light">All</ToggleButton>
+              <ToggleButton value={MODE_TODAY} variant="light">Today</ToggleButton>
+              <ToggleButton value={MODE_MIL} variant="light">/Million</ToggleButton>
             </ToggleButtonGroup>   
             </Col>
           </Row>  
