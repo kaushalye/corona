@@ -4,7 +4,6 @@ import State from './state';
 import Country from './country';
 import StateGraph from './state_graph';
 import StatsHeader from './stats_header';
-import CountrySummary from './country_summary';
 import DistrictView from './district_view';
 
 class CountryOverview extends Component {
@@ -50,6 +49,7 @@ class CountryOverview extends Component {
           {country.map((c, i) => {
             return (
               <StatsHeader 
+                data={c}
                 name={c.country}
                 img={c.countryInfo && c.countryInfo.flag} 
                 imgClass="flagImg" 
@@ -60,20 +60,6 @@ class CountryOverview extends Component {
             )
           })}
                 
-          {country.map((c, i) => {
-            return (
-              <CountrySummary 
-                critical={c.critical}
-                active={c.active}
-                tests={c.tests}
-                todayCases={c.todayCases}
-                todayDeaths={c.todayDeaths}
-                casesPerOneMillion={c.casesPerOneMillion}
-                deathsPerOneMillion={c.deathsPerOneMillion}
-                testsPerOneMillion={c.testsPerOneMillion}
-              />
-            )
-          })}
                 <Row float="center" className="countryGraphPane">
                   <Col>
                     {!hasMultipleStates &&

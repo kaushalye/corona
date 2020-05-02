@@ -17,10 +17,13 @@ import StringUtil from '../lib/string_util';
 import queryString from 'query-string';
 
 const DEFAULT_FILTER = "usa, italy";
-const MODE_ALL = 'all';
-const MODE_TODAY = 'today';
-const MODE_MIL = 'mil';
-const MODE_TESTS = 'tests';
+
+const modes = {
+  ALL: 'all',
+  TODAY: 'today',
+  PERMILLION: 'permillion',
+  PERTESTS: 'pertests'
+}
 
 class WorldOverview extends Component {
 
@@ -28,7 +31,7 @@ class WorldOverview extends Component {
     super(props);
     this.state = {
       textfilter: '',
-      mode: MODE_ALL,
+      mode: modes.ALL,
       countriesToCompare: [],
       soFar: {},
     };
@@ -39,16 +42,29 @@ class WorldOverview extends Component {
     this.compare = this.compare.bind(this);
     this.createColumns = this.createColumns.bind(this);
     this.fetchWorld = this.fetchWorld.bind(this);
+    this.setMode = this.setMode.bind(this);
   }
 
-  modeChanged(e) {
+  setMode(mode) {
+    console.log('setMode= ', mode);
+    if ( !mode || !modes.hasOwnProperty(mode.toUpperCase()) ) {
+      mode = modes.ALL;
+    }
+    console.log('setMode 2= ', mode);
     this.setState({
-      mode: e.target.value,
+      mode: mode,
     });
   }
 
+  modeChanged(e) {
+    this.setMode(e.target.value);
+    // this.setState({
+    //   mode: e.target.value,
+    // });
+  }
+
   compare(e) {
-    console.log('filteredCountries');
+    
     let selected = [];
     if (this.state.countriesToCompare.length > 1) {
       selected = this.state.countriesToCompare 
@@ -85,15 +101,12 @@ class WorldOverview extends Component {
     .catch(console.log)
   }
 
-
   componentDidMount() {
     this.fetchWorld();
     const params = queryString.parse(this.props.location.search);
+    this.setMode(params.mode);
     console.log('params.mode');
     console.log(params.mode);
-    this.setState({
-      mode: params.mode || MODE_ALL,
-    });
   }
 
   toNumString(num) {
@@ -119,13 +132,11 @@ class WorldOverview extends Component {
     };
 
     const columnsConfig = {};
-    columnsConfig[MODE_ALL] = ['cases', 'deaths', 'recovered', 'active', 'critical', 'tests', ];
-    columnsConfig[MODE_TODAY] = ['todayCases', 'todayDeaths', ];
-    columnsConfig[MODE_MIL] = ['casesPerOneMillion', 'deathsPerOneMillion', 'testsPerOneMillion',];
+    columnsConfig[modes.ALL] = ['cases', 'deaths', 'recovered', 'active', 'critical', 'tests', ];
+    columnsConfig[modes.TODAY] = ['todayCases', 'todayDeaths', ];
+    columnsConfig[modes.PERMILLION] = ['casesPerOneMillion', 'deathsPerOneMillion', 'testsPerOneMillion',];
 
-    console.log('this.state.mode');
-    console.log(this.state.mode);
-    const columns = columnsConfig[this.state.mode || MODE_ALL].map(col =>  (
+    const columns = columnsConfig[this.state.mode || modes.ALL].map(col =>  (
       {
         sort: true,
         text: col
@@ -153,9 +164,9 @@ class WorldOverview extends Component {
     }];
 
     const modeDetailsConfig = {}
-    modeDetailsConfig[MODE_ALL] = '';
-    modeDetailsConfig[MODE_TODAY] = ' Showing data for today.';
-    modeDetailsConfig[MODE_MIL] = ' Showing data per one million people.';
+    modeDetailsConfig[modes.ALL] = '';
+    modeDetailsConfig[modes.TODAY] = ' Showing data for today.';
+    modeDetailsConfig[modes.PERMILLION] = ' Showing data per one million people.';
 
     const filteredCountries = this.props.countries
     .filter( 
@@ -164,16 +175,19 @@ class WorldOverview extends Component {
         c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase())
     );
 
+    const allData = this.state.soFar;
     return (
       <Container>
         <StatsHeader 
             name="Global"
             img="/corona.png" 
             imgClass="globalImg" 
-            confirmed={this.state.soFar.cases}
-            deaths={this.state.soFar.deaths}
-            recovered={this.state.soFar.recovered}
+            data={allData}
+            confirmed={allData.cases}
+            deaths={allData.deaths}
+            recovered={allData.recovered}
         />  
+
         <Row float="left" className="worldControlPane">  
           <Col>
           <InputGroup className="mb-3">
@@ -195,14 +209,14 @@ class WorldOverview extends Component {
           <Row className="textAll">
           <Col xs={7}>
             <span className="helpText"> Select a country to see details.</span >
-            <span className="helpText">{modeDetailsConfig[this.state.mode || MODE_ALL]}</span >  
+            <span className="helpText">{modeDetailsConfig[this.state.mode || modes.ALL]}</span >  
           </Col>
           <Col xs={5} align="right">      
             
-            <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode " defaultValue={MODE_ALL} onClick={this.modeChanged.bind(this)}>
-              <ToggleButton value={MODE_ALL} variant="light">All</ToggleButton>
-              <ToggleButton value={MODE_TODAY} variant="light">Today</ToggleButton>
-              <ToggleButton value={MODE_MIL} variant="light">/Million</ToggleButton>
+            <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode" onClick={this.modeChanged.bind(this)}>
+              <ToggleButton value={modes.ALL} variant="light">All</ToggleButton>
+              <ToggleButton value={modes.TODAY} variant="light">Today</ToggleButton>
+              <ToggleButton value={modes.PERMILLION} variant="light">/Million</ToggleButton>
             </ToggleButtonGroup>   
             </Col>
           </Row>  
