@@ -160,15 +160,29 @@ html, body {
   color: grey;
   height: 40px;
 }
-.worldTable{
-  background-color: white;
-}
+
 .worldTable th {
+  text-align: right;
   top: 0;
   position: sticky;
   color:#2C3E50  ;
   background-color: white;
   z-index: 2;
+}
+.worldTable td {
+  text-align: right;
+}
+.countryId{
+  text-align: left!important;
+}
+
+.todayStats {
+  display: block;
+  text-align: right!important;
+  color: purple;
+  font-size: 0.4em;
+  padding: 0;
+  
 }
 
 .stateInfo{

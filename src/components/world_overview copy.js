@@ -11,7 +11,7 @@ import { InputGroup,
   ToggleButton,
   Button,
   Image} from 'react-bootstrap';
-// import BootstrapTable from 'react-bootstrap-table-next';
+import BootstrapTable from 'react-bootstrap-table-next';
 import StatsHeader from './stats_header';
 import StringUtil from '../lib/string_util';
 import queryString from 'query-string';
@@ -20,6 +20,7 @@ const DEFAULT_FILTER = "usa, italy";
 
 const modes = {
   ALL: 'all',
+  TODAY: 'today',
   PERMILLION: 'permillion',
   PERTESTS: 'pertests'
 }
@@ -33,32 +34,23 @@ class WorldOverview extends Component {
       mode: modes.ALL,
       countriesToCompare: [],
       soFar: {},
-      sortBy: 'cases',
-      sortOrder: -1,
     };
     this.modeChanged = this.modeChanged.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.countryFormatter = this.countryFormatter.bind(this);
     this.toNumString = this.toNumString.bind(this);
     this.compare = this.compare.bind(this);
+    this.createColumns = this.createColumns.bind(this);
     this.fetchWorld = this.fetchWorld.bind(this);
     this.setMode = this.setMode.bind(this);
-    this.setSortBy = this.setSortBy.bind(this);//
-    this.renderTable = this.renderTable.bind(this);
-  }
-
-  setSortBy(e) {
-    this.setState({
-      sortBy: e.target.getAttribute('value'),
-      sortOrder: -this.state.sortOrder,
-    });
   }
 
   setMode(mode) {
+    console.log('setMode= ', mode);
     if ( !mode || !modes.hasOwnProperty(mode.toUpperCase()) ) {
       mode = modes.ALL;
     }
-
+    console.log('setMode 2= ', mode);
     this.setState({
       mode: mode,
     });
@@ -66,6 +58,9 @@ class WorldOverview extends Component {
 
   modeChanged(e) {
     this.setMode(e.target.value);
+    // this.setState({
+    //   mode: e.target.value,
+    // });
   }
 
   compare(e) {
@@ -128,104 +123,58 @@ class WorldOverview extends Component {
     );
   }
 
+  createColumns() {
+    const countryColumn = {
+      sort: true,
+      dataField: 'country',
+      formatter: this.countryFormatter,
+      text: 'Country'
+    };
 
-  filterAndSort(countries) {
-    // Filter
-    const filtered = countries
+    const columnsConfig = {};
+    columnsConfig[modes.ALL] = ['cases', 'deaths', 'recovered', 'active', 'critical', 'tests', ];
+    columnsConfig[modes.TODAY] = ['todayCases', 'todayDeaths', ];
+    columnsConfig[modes.PERMILLION] = ['casesPerOneMillion', 'deathsPerOneMillion', 'testsPerOneMillion',];
+
+    const columns = columnsConfig[this.state.mode || modes.ALL].map(col =>  (
+      {
+        sort: true,
+        text: col
+                  .replace('PerOneMillion', '')
+                  .replace('today', '')
+                  .replace(/^\w/, c => c.toUpperCase()),
+        dataField: col,
+        formatter: this.toNumString,
+        headerAlign: 'right',
+        align: 'right',
+      }
+    ));
+    // Add country column at the begning
+    columns.unshift(countryColumn);
+
+    return columns;
+  }
+
+  render() {
+    const columns = this.createColumns();
+
+    const defaultSorted = [{
+      dataField: 'cases',
+      order: 'desc'
+    }];
+
+    const modeDetailsConfig = {}
+    modeDetailsConfig[modes.ALL] = '';
+    modeDetailsConfig[modes.TODAY] = ' Showing data for today.';
+    modeDetailsConfig[modes.PERMILLION] = ' Showing data per one million people.';
+
+    const filteredCountries = this.props.countries
     .filter( 
       c => (this.state.countriesToCompare.length > 1) ? 
         this.state.countriesToCompare.includes(c.country.toLowerCase()): 
         c.country.toLowerCase().startsWith(this.state.textfilter.toLowerCase())
     );
 
-    const comparison = (a, b) => {
-      if (a[this.state.sortBy] > b[this.state.sortBy]) {
-        return this.state.sortOrder;
-      }
-      return this.state.sortOrder * -1;
-    }
-
-    return filtered.sort(comparison);
-  }
-
-  renderTable(filteredCountries) {
-    return (
-      <table class="table table-striped worldTable">
-              <thead>
-              <tr>
-                  <th scope="col">#</th>
-                  <th scope="col" className="countryId" onClick={this.setSortBy.bind(this)}>Country</th>
-                  { this.state.mode === modes.ALL && 
-                    <>
-                    <th scope="col" value="cases" onClick={this.setSortBy.bind(this)}>Cases</th>
-                    <th scope="col" value="deaths" onClick={this.setSortBy.bind(this)}>Deaths</th>
-                    <th scope="col" value="active" onClick={this.setSortBy.bind(this)}>Active</th>
-                    <th scope="col" value="recovered" onClick={this.setSortBy.bind(this)}>Recovered</th>
-                    <th scope="col" value="critical" onClick={this.setSortBy.bind(this)}>Critical</th>
-                    <th scope="col" value="tests" onClick={this.setSortBy.bind(this)}>Tests</th>
-                    </>
-                  }
-                  { this.state.mode === modes.PERMILLION && 
-                    <>
-                    <th scope="col" value="casesPerOneMillion" onClick={this.setSortBy.bind(this)}>Cases</th>
-                    <th scope="col" value="deathsPerOneMillion" onClick={this.setSortBy.bind(this)}>Deaths</th>
-                    <th scope="col" value="activePerOneMillion" onClick={this.setSortBy.bind(this)}>Active</th>
-                    <th scope="col" value="recoveredPerOneMillion" onClick={this.setSortBy.bind(this)}>Recovered</th>
-                    <th scope="col" value="criticalPerOneMillion" onClick={this.setSortBy.bind(this)}>Critical</th>
-                    <th scope="col" value="testsPerOneMillion" onClick={this.setSortBy.bind(this)}>Tests</th>
-                    </>
-                  }
-                </tr>
-              </thead>
-              <tbody>
-              {filteredCountries.map((c, i) => {
-                      return (
-                        <tr>
-                        <th scope="row">{i+1}</th>
-                        <td className="countryId">
-                          <span className="worldLink">
-                            <a href={"/corona/country/"+c.countryInfo.iso2}>
-                            <Image src={c.countryInfo.flag} className="flagImg"/>&nbsp;{c.country}
-                            </a>
-                          </span>
-                        </td>
-                        { this.state.mode === modes.ALL && 
-                        <>
-                        <td>{this.toNumString(c.cases)} <span className="todayStats">{c.todayCases > 0 && "+"+this.toNumString(c.todayCases)}</span></td>
-                        <td>{this.toNumString(c.deaths)} <span className="todayStats">{c.todayDeaths > 0 && "+"+this.toNumString(c.todayDeaths)}</span></td>
-                        <td>{this.toNumString(c.active)}</td>
-                        <td>{this.toNumString(c.recovered)}</td>
-                        <td>{this.toNumString(c.critical)}</td>
-                        <td>{this.toNumString(c.tests)}</td>
-                        </>
-                        } 
-                        { this.state.mode === modes.PERMILLION && 
-                        <>
-                        <td>{this.toNumString(c.casesPerOneMillion)}</td>
-                        <td>{this.toNumString(c.deathsPerOneMillion)}</td>
-                        <td>{this.toNumString(c.activePerOneMillion)}</td>
-                        <td>{this.toNumString(c.recoveredPerOneMillion)}</td>
-                        <td>{this.toNumString(c.criticalPerOneMillion)}</td>
-                        <td>{this.toNumString(c.testsPerOneMillion)}</td>
-                        </>
-                        } 
-                      </tr>
-                      );
-                  })}
-
-                </tbody>
-              </table>
-    );
-  }
-
-  render() {
-    const modeDetailsConfig = {}
-    modeDetailsConfig[modes.ALL] = '';
-    modeDetailsConfig[modes.TODAY] = ' Showing data for today.';
-    modeDetailsConfig[modes.PERMILLION] = ' Showing data per one million people.';
-
-    const filteredCountries = this.filterAndSort(this.props.countries);
-    console.log(filteredCountries);
     const allData = this.state.soFar;
     return (
       <Container>
@@ -266,13 +215,23 @@ class WorldOverview extends Component {
             
             <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode" onClick={this.modeChanged.bind(this)}>
               <ToggleButton value={modes.ALL} variant="light">All</ToggleButton>
+              <ToggleButton value={modes.TODAY} variant="light">Today</ToggleButton>
               <ToggleButton value={modes.PERMILLION} variant="light">/Million</ToggleButton>
             </ToggleButtonGroup>   
             </Col>
           </Row>  
           <Row float="center">
-          <Col>
-            {this.renderTable(filteredCountries)}
+            <Col>
+              <BootstrapTable 
+                keyField='country' 
+                data = {filteredCountries}
+                columns={ columns }  
+                striped={true}
+                condensed={true}
+                hover={true}
+                bordered={false}
+                classes={'worldTable'}
+                defaultSorted= {defaultSorted }/>
             </Col>
           </Row>
           <Row>
