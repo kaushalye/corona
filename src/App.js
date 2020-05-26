@@ -24,6 +24,7 @@ class App extends Component {
     fetch( 'https://corona.lmao.ninja/v2/countries?sort=country')
     .then(res => res.json())
     .then((data) => {
+      localStorage.setItem('world-c19', JSON.stringify(data));
       this.setState({ 
         countries: data,
       });
@@ -50,9 +51,9 @@ class App extends Component {
           </Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Item>      
-            <span className="pageTitle">COVID-19 statistics</span>
-          </Nav.Item>
+          <Nav.Link href="/corona/world">      
+            <span className="pageTitle" >COVID-19 statistics</span>
+          </Nav.Link>
         </Nav>
       </Navbar>
         <Switch>

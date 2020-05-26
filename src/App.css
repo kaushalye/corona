@@ -175,12 +175,17 @@ html, body {
 .countryId{
   text-align: left!important;
 }
-
+.rank {
+  color: lightgray!important;
+  padding: 0 !important;
+  text-align: center!important;
+  vertical-align: middle!important;
+}
 .todayStats {
   display: block;
   text-align: right!important;
-  color: purple;
-  font-size: 0.4em;
+  color: red;
+  font-size: 0.8em;
   padding: 0;
   
 }

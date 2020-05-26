@@ -13,12 +13,14 @@ class CompareView extends Component {
       lastupdate:'',
     };
     this.getData = this.getData.bind(this);
+    this.getValueFromLocalStorage = this.getValueFromLocalStorage.bind(this);
   }
 
   async getData(countryCode) {
     const url = 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?onlyCountries=true&iso2=' +countryCode
     const res = await fetch(url);
     const data = await res.json();
+
     const countries = data.map(r => {
       const ts = Object.keys(r.timeseries);
       return {
@@ -45,6 +47,15 @@ class CompareView extends Component {
       .map(code=> code.trim().toUpperCase());
 
     return countryCodes.slice(0, 5).map(this.getData);
+  }
+
+  getValueFromLocalStorage(iso2, field) {
+    const localData = localStorage.getItem("world-c19") ? JSON.parse(localStorage.getItem("world-c19")) : [];
+    const country = localData.filter(c => c.countryInfo.iso2 === iso2);
+    if (!country) {
+      return undefined;
+    }
+    return country[0][field];
   }
 
   render() {
@@ -83,12 +94,13 @@ class CompareView extends Component {
                 <th className="cinfo text-right">Cases</th>
                 <th className="cdanger text-right">Deaths</th>
                 <th className="csuccess text-right">Recovered</th>
+                <th className="text-right">Tests</th>
+                <th className="text-right">Population</th>
               </tr>
             </thead>
             <tbody>
               {this.state.countries.map(c => {
                 const imgSrc=`https://corona.lmao.ninja/assets/img/flags/${c.iso2.toLowerCase()}.png`;
-                console.log(c);
                 return (
                   <tr>
                     <td><Image className="flagImg" src={imgSrc}></Image></td>
@@ -96,6 +108,8 @@ class CompareView extends Component {
                     <td className="text-right" >{StringUtil.formatNumber(c.confirmed[c.confirmed.length-1])}</td>
                     <td className="text-right" >{StringUtil.formatNumber(c.deaths[c.deaths.length-1])}</td>
                     <td className="text-right" >{StringUtil.formatNumber(c.recovered[c.recovered.length-1])}</td>
+                    <td className="text-right" >{StringUtil.formatNumber(this.getValueFromLocalStorage(c.iso2, 'tests'))}</td>
+                    <td className="text-right" >{StringUtil.formatNumber(this.getValueFromLocalStorage(c.iso2, 'population'))}</td>
                   </tr>
                 );
               })}

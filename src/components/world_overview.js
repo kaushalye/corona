@@ -11,7 +11,6 @@ import { InputGroup,
   ToggleButton,
   Button,
   Image} from 'react-bootstrap';
-// import BootstrapTable from 'react-bootstrap-table-next';
 import StatsHeader from './stats_header';
 import StringUtil from '../lib/string_util';
 import queryString from 'query-string';
@@ -98,6 +97,7 @@ class WorldOverview extends Component {
     fetch( 'https://corona.lmao.ninja/v2/all')
     .then(res => res.json())
     .then((data) => {
+      localStorage.setItem('world-summary', JSON.stringify(data));
       this.setState({ 
         soFar: data,
         lastUpdated: data.updated,
@@ -110,8 +110,6 @@ class WorldOverview extends Component {
     this.fetchWorld();
     const params = queryString.parse(this.props.location.search);
     this.setMode(params.mode);
-    console.log('params.mode');
-    console.log(params.mode);
   }
 
   toNumString(num) {
@@ -153,7 +151,7 @@ class WorldOverview extends Component {
       <table class="table table-striped worldTable">
               <thead>
               <tr>
-                  <th scope="col">#</th>
+                  <th scope="col"  className="rank">#</th>
                   <th scope="col" className="countryId" onClick={this.setSortBy.bind(this)}>Country</th>
                   { this.state.mode === modes.ALL && 
                     <>
@@ -181,11 +179,11 @@ class WorldOverview extends Component {
               {filteredCountries.map((c, i) => {
                       return (
                         <tr>
-                        <th scope="row">{i+1}</th>
+                        <th scope="row" className="rank">{i+1}</th>
                         <td className="countryId">
                           <span className="worldLink">
                             <a href={"/corona/country/"+c.countryInfo.iso2}>
-                            <Image src={c.countryInfo.flag} className="flagImg"/>&nbsp;{c.country}
+                              <Image src={c.countryInfo.flag} className="flagImg"/>&nbsp;{c.country}
                             </a>
                           </span>
                         </td>
@@ -225,7 +223,6 @@ class WorldOverview extends Component {
     modeDetailsConfig[modes.PERMILLION] = ' Showing data per one million people.';
 
     const filteredCountries = this.filterAndSort(this.props.countries);
-    console.log(filteredCountries);
     const allData = this.state.soFar;
     return (
       <Container>

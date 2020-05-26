@@ -46,11 +46,9 @@ class WorldOverview extends Component {
   }
 
   setMode(mode) {
-    console.log('setMode= ', mode);
     if ( !mode || !modes.hasOwnProperty(mode.toUpperCase()) ) {
       mode = modes.ALL;
     }
-    console.log('setMode 2= ', mode);
     this.setState({
       mode: mode,
     });
@@ -105,8 +103,6 @@ class WorldOverview extends Component {
     this.fetchWorld();
     const params = queryString.parse(this.props.location.search);
     this.setMode(params.mode);
-    console.log('params.mode');
-    console.log(params.mode);
   }
 
   toNumString(num) {

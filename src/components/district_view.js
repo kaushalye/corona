@@ -17,7 +17,6 @@ class DistrictView extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
     this.fetchCountrySpecific(this.props.iso2);
   }
 
@@ -31,7 +30,6 @@ class DistrictView extends Component {
       fetch(url)
       .then(res => res.json())
       .then((data) => {
-        console.log('then in fetch ', data);
         return this.setState({ data: data.prefectures.filter(p => p.prefecture !== 'Total').map(p => ({
           name: p.prefecture,
           cases: parseInt(p.cases || "0"),
@@ -44,9 +42,7 @@ class DistrictView extends Component {
   }
 
   render() {
-    console.log('data', this.state.data); 
     const data = this.state.data;
-    console.log(data);
     const columns = [ {
       sort: true,
       dataField: 'name',
