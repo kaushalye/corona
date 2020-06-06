@@ -100,7 +100,7 @@ class CompareView extends Component {
             </thead>
             <tbody>
               {this.state.countries.map(c => {
-                const imgSrc=`https://corona.lmao.ninja/assets/img/flags/${c.iso2.toLowerCase()}.png`;
+                const imgSrc = StringUtil.flagImg('c.iso2');//`https://corona.lmao.ninja/assets/img/flags/${c.iso2.toLowerCase()}.png`;
                 return (
                   <tr>
                     <td><Image className="flagImg" src={imgSrc}></Image></td>

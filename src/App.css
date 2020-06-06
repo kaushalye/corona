@@ -25,6 +25,23 @@
   color: white;
 }
 
+.recentyAccessed{
+  color: white;
+  padding: 10px;
+  align-items: right;
+}
+
+.recentyAccessed  img {
+  width: 30px;
+  height: 20px;
+  padding: 1px;
+  margin: 1px;
+  border-radius: 5px;
+  border: black;
+  border-width: 0.1px;
+  border-style: solid;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -189,7 +206,9 @@ html, body {
   padding: 0;
   
 }
-
+.districtNameCell{
+  text-align: left!important;
+}
 .stateInfo{
   display: flex;
   flex-direction: row ;

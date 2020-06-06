@@ -39,14 +39,59 @@ class DistrictView extends Component {
       })
       .catch(console.log)
     }
+
+    if (iso2 === 'US') {
+      const url = 'https://disease.sh/v2/states?sort=cases';
+      fetch(url)
+      .then(res => res.json())
+      .then((data) => {
+        return this.setState({ data: data.map(p => ({
+          name: p.state,
+          cases: parseInt(p.cases || "0"),
+          deaths: parseInt(p.deaths || "0"),
+          recovered: parseInt(p.recovered || "0"),
+        })) });
+      })
+      .catch(console.log)
+    }
+
+    if (iso2 === 'IN') {
+      const url = 'https://api.covid19india.org/state_district_wise.json';
+      fetch(url)
+      .then(res => res.json())
+      .then((data) => {
+        const stateKeys = Object.keys(data);
+        const statedata = [];
+        stateKeys.forEach(stateKey => {
+          const singleState =  data[stateKey];
+          const districtData = singleState['districtData'];
+          const districtDataKeys = Object.keys(districtData);
+          districtDataKeys.forEach(districtDataKey => {
+            const singleDistrict = districtData[districtDataKey];
+            statedata.push({
+              name: stateKey+" - "+districtDataKey,
+              cases: singleDistrict.active,
+              deaths: singleDistrict.deceased,
+              recovered: singleDistrict.recovered,
+            })
+          })
+        });
+        return this.setState({ data: statedata});
+      })
+      .catch(console.log)
+    }
+
   }
 
   render() {
     const data = this.state.data;
+    console.log(data);
     const columns = [ {
       sort: true,
       dataField: 'name',
-      text: 'District'
+      headerClasses: 'districtNameCell',
+      classes: 'districtNameCell',
+      text: 'Region'
     },
     {
       sort: true,
@@ -70,8 +115,8 @@ class DistrictView extends Component {
     }];
 
     const defaultSorted = [{
-      dataField: 'cases',
-      order: 'desc'
+      dataField: 'name',
+      order: 'asc'
     }];
 
       return (

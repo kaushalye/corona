@@ -163,16 +163,6 @@ class WorldOverview extends Component {
                     <th scope="col" value="tests" onClick={this.setSortBy.bind(this)}>Tests</th>
                     </>
                   }
-                  { this.state.mode === modes.PERMILLION && 
-                    <>
-                    <th scope="col" value="casesPerOneMillion" onClick={this.setSortBy.bind(this)}>Cases</th>
-                    <th scope="col" value="deathsPerOneMillion" onClick={this.setSortBy.bind(this)}>Deaths</th>
-                    <th scope="col" value="activePerOneMillion" onClick={this.setSortBy.bind(this)}>Active</th>
-                    <th scope="col" value="recoveredPerOneMillion" onClick={this.setSortBy.bind(this)}>Recovered</th>
-                    <th scope="col" value="criticalPerOneMillion" onClick={this.setSortBy.bind(this)}>Critical</th>
-                    <th scope="col" value="testsPerOneMillion" onClick={this.setSortBy.bind(this)}>Tests</th>
-                    </>
-                  }
                 </tr>
               </thead>
               <tbody>
@@ -205,6 +195,16 @@ class WorldOverview extends Component {
                         <td>{this.toNumString(c.recoveredPerOneMillion)}</td>
                         <td>{this.toNumString(c.criticalPerOneMillion)}</td>
                         <td>{this.toNumString(c.testsPerOneMillion)}</td>
+                        </>
+                        } 
+                        { this.state.mode === modes.PERTESTS && 
+                        <>
+                        <td>{this.toNumString(c.cases)}</td>
+                        <td>{this.toNumString(c.deaths)}</td>
+                        <td>{this.toNumString(c.active)}</td>
+                        <td>{this.toNumString(c.recovered)}</td>
+                        <td>{this.toNumString(c.critical)}</td>
+                        <td>{this.toNumString(c.tests)}</td>
                         </>
                         } 
                       </tr>

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
 import CountryOverview from './components/country_overview';
-import { Container, Nav, Navbar} from 'react-bootstrap';
+import { Container, Nav, Navbar, Image} from 'react-bootstrap';
 import WorldOverview from './components/world_overview'
 import CompareView from './components/compare_view';
+import StringUtil from './lib/string_util';
 
 import {
   BrowserRouter as Router,
@@ -16,11 +17,12 @@ class App extends Component {
 
   state = {
     countries: [],
+    freqCountries: [],
     regions: [],
   }
 
   componentDidMount() {
-
+    // Get data
     fetch( 'https://corona.lmao.ninja/v2/countries?sort=country')
     .then(res => res.json())
     .then((data) => {
@@ -31,6 +33,12 @@ class App extends Component {
     })
     .catch(console.log)
 
+    // Get frequentlyt accessed coutnries from local storage
+    this.setState({ 
+      freqCountries: StringUtil.getFreqCountries() || [],
+    });
+    
+
   }
 
   render() {
@@ -39,7 +47,7 @@ class App extends Component {
       <Router>
       <Container className="full-height">
       <Navbar className="justify-content" bg="primary" variant="dark" >
-        <Nav>
+        <Nav >
           <Nav.Link eventKey="1" href="/corona/world">      
             <img
               src="/logo192.png"
@@ -50,13 +58,28 @@ class App extends Component {
             /> 
           </Nav.Link>
         </Nav>
-        <Nav>
+        <Nav className="mr-auto">
           <Nav.Link href="/corona/world">      
             <span className="pageTitle" >COVID-19 statistics</span>
           </Nav.Link>
         </Nav>
+        <Nav>
+          <Nav.Item className="justify-content-end">  
+            <Container className="recentyAccessed">
+              {this.state.freqCountries.slice(0, 5).map(fc => {
+                const imgSrc = StringUtil.flagImg(fc);//`https://corona.lmao.ninja/assets/img/flags/${c.iso2.toLowerCase()}.png`;
+                return (
+                  <a href={`/corona/country/${fc}`}><Image src={imgSrc}></Image></a>
+                  
+                );
+              })}
+            </Container>
+         
+          </Nav.Item>
+        </Nav>
       </Navbar>
-        <Switch>
+
+      <Switch>
           <Route path="/corona/world">
             <WorldOverview countries={this.state.countries} />
           </Route>

@@ -5,6 +5,7 @@ import Country from './country';
 import StateGraph from './state_graph';
 import StatsHeader from './stats_header';
 import DistrictView from './district_view';
+import StringUtil from '../lib/string_util';
 
 class CountryOverview extends Component {
 
@@ -18,7 +19,8 @@ class CountryOverview extends Component {
 
 
   componentDidMount() {
-    const url = 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=' + this.props.iso2
+    const iso2 = this.props.iso2;
+    const url = 'https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/timeseries?iso2=' + iso2;
     fetch(url)
       .then(res => res.json())
       .then((data) => {
@@ -34,6 +36,7 @@ class CountryOverview extends Component {
             recovered: ts.map(t => r.timeseries[t].recovered),
           };
         });
+        StringUtil.addFreqCountry(iso2);
         return this.setState({ regions: regions });
       })
       .catch(console.log)
