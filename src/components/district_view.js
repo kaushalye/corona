@@ -82,6 +82,10 @@ class DistrictView extends Component {
           const districtData = singleState['districtData'];
           const districtDataKeys = Object.keys(districtData);
           districtDataKeys.forEach(districtDataKey => {
+            if (districtDataKey === 'Unknown') {
+              console.log(districtDataKey);
+              return;
+            }
             const singleDistrict = districtData[districtDataKey];
             statedata.push({
               name: stateKey+" - "+districtDataKey,
