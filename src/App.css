@@ -228,8 +228,8 @@ html, body {
   flex-direction: row ;
   justify-content: flex-start;
   vertical-align: middle;
-  background-color:white;
-  color: #2C3E50 ;
+  background-color:#20252a;
+  color: white;
   padding: 5px 5px;
 }
 
@@ -262,4 +262,13 @@ html, body {
 
 .districtView{
   width: 80%;
+}
+
+.newsslide{
+  border-top: 1px solid black;
+  background-color: #0c0d0d;
+  height: 220px;
+}
+.newsslideItem{
+  height: 220px;
 }

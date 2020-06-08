@@ -66,7 +66,7 @@ class App extends Component {
         <Nav>
           <Nav.Item className="justify-content-end">  
             <Container className="recentyAccessed">
-              {this.state.freqCountries.slice(0, 5).map(fc => {
+              {this.state.freqCountries.slice(0, 5).reverse().map(fc => {
                 const imgSrc = StringUtil.flagImg(fc);//`https://corona.lmao.ninja/assets/img/flags/${c.iso2.toLowerCase()}.png`;
                 return (
                   <a href={`/corona/country/${fc}`}><Image src={imgSrc}></Image></a>

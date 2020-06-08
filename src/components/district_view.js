@@ -55,6 +55,21 @@ class DistrictView extends Component {
       .catch(console.log)
     }
 
+    if (iso2 === 'JP') {
+      const url = 'https://covid19-japan-web-api.now.sh/api/v1/prefectures';
+      fetch(url)
+      .then(res => res.json())
+      .then((data) => {
+        return this.setState({ data: data.map(p => ({
+          name: `${p.name_en} (${p.name_ja})`,
+          cases: parseInt(p.cases || "0"),
+          deaths: parseInt(p.deaths || "0"),
+          recovered: parseInt(p.recovered || "0"),
+        })) });
+      })
+      .catch(console.log)
+    }
+
     if (iso2 === 'IN') {
       const url = 'https://api.covid19india.org/state_district_wise.json';
       fetch(url)
