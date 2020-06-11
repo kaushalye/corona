@@ -31,7 +31,7 @@ class DistrictView extends Component {
       .then(res => res.json())
       .then((data) => {
         return this.setState({ data: data.prefectures.filter(p => p.prefecture !== 'Total').map(p => ({
-          name: p.prefecture,
+          name: `${p.prefecture} - ${p.prefecturesi}`,
           cases: parseInt(p.cases || "0"),
           deaths: parseInt(p.deaths || "0"),
           recovered: parseInt(p.recovered || "0"),
@@ -61,7 +61,7 @@ class DistrictView extends Component {
       .then(res => res.json())
       .then((data) => {
         return this.setState({ data: data.map(p => ({
-          name: `${p.name_en} (${p.name_ja})`,
+          name: `${p.name_en} - ${p.name_ja}`,
           cases: parseInt(p.cases || "0"),
           deaths: parseInt(p.deaths || "0"),
           recovered: parseInt(p.recovered || "0"),
@@ -82,11 +82,10 @@ class DistrictView extends Component {
           const districtData = singleState['districtData'];
           const districtDataKeys = Object.keys(districtData);
           districtDataKeys.forEach(districtDataKey => {
-            if (districtDataKey === 'Unknown') {
-              console.log(districtDataKey);
+            const singleDistrict = districtData[districtDataKey];
+            if (districtDataKey === 'Unknown' || parseInt(singleDistrict.active) < 0) {
               return;
             }
-            const singleDistrict = districtData[districtDataKey];
             statedata.push({
               name: stateKey+" - "+districtDataKey,
               cases: singleDistrict.active,

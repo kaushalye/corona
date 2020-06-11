@@ -25,7 +25,6 @@ class StringUtil {
     }
 
     const freq = this.getFreqCountries();
-    console.log(freq);
     if (freq.indexOf(iso2) > -1) {
       return;
     }
@@ -33,7 +32,6 @@ class StringUtil {
     while(freq.length > 5) {
       freq.shift();
     }
-    console.log(freq);
     localStorage.setItem(LS_KEY_FREQ, JSON.stringify(freq));
   }
 }
