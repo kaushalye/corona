@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {Container} from 'react-bootstrap';
 import StringUtil from '../lib/string_util';
 import BootstrapTable from 'react-bootstrap-table-next';
+import Trans from '../lib/trans';
 
 class DistrictView extends Component {
 
@@ -11,95 +12,27 @@ class DistrictView extends Component {
     this.state = {
       data: [],
     };
-    this.fetchCountrySpecific = this.fetchCountrySpecific.bind(this);
-
+    this.trans = new Trans();
     this.toNumString = this.toNumString.bind(this);
+    this.countrySpecificData = this.countrySpecificData.bind(this);
   }
 
   componentDidMount() {
-    this.fetchCountrySpecific(this.props.iso2);
+    this.countrySpecificData(this.trans[this.props.iso2.toLowerCase()]);
   }
 
   toNumString(num) {
     return StringUtil.formatNumber(num);
   }
 
-  fetchCountrySpecific(iso2) {
-    if (iso2 === 'LK') {
-      const url = 'https://covid-19sl.s3-ap-northeast-1.amazonaws.com/data.json';
-      fetch(url)
-      .then(res => res.json())
-      .then((data) => {
-        return this.setState({ data: data.prefectures.filter(p => p.prefecture !== 'Total').map(p => ({
-          name: `${p.prefecture} - ${p.prefecturesi}`,
-          cases: parseInt(p.cases || "0"),
-          deaths: parseInt(p.deaths || "0"),
-          recovered: parseInt(p.recovered || "0"),
-        })) });
-      })
-      .catch(console.log)
-    }
-
-    if (iso2 === 'US') {
-      const url = 'https://disease.sh/v2/states?sort=cases';
-      fetch(url)
-      .then(res => res.json())
-      .then((data) => {
-        return this.setState({ data: data.map(p => ({
-          name: p.state,
-          cases: parseInt(p.cases || "0"),
-          deaths: parseInt(p.deaths || "0"),
-          recovered: parseInt(p.recovered || "0"),
-        })) });
-      })
-      .catch(console.log)
-    }
-
-    if (iso2 === 'JP') {
-      const url = 'https://covid19-japan-web-api.now.sh/api/v1/prefectures';
-      fetch(url)
-      .then(res => res.json())
-      .then((data) => {
-        return this.setState({ data: data.map(p => ({
-          name: `${p.name_en} - ${p.name_ja}`,
-          cases: parseInt(p.cases || "0"),
-          deaths: parseInt(p.deaths || "0"),
-          recovered: parseInt(p.recovered || "0"),
-        })) });
-      })
-      .catch(console.log)
-    }
-
-    if (iso2 === 'IN') {
-      const url = 'https://api.covid19india.org/state_district_wise.json';
-      fetch(url)
-      .then(res => res.json())
-      .then((data) => {
-        const stateKeys = Object.keys(data);
-        const statedata = [];
-        stateKeys.forEach(stateKey => {
-          const singleState =  data[stateKey];
-          const districtData = singleState['districtData'];
-          const districtDataKeys = Object.keys(districtData);
-          districtDataKeys.forEach(districtDataKey => {
-            const singleDistrict = districtData[districtDataKey];
-            if (districtDataKey === 'Unknown' || parseInt(singleDistrict.active) < 0) {
-              return;
-            }
-            statedata.push({
-              name: stateKey+" - "+districtDataKey,
-              cases: singleDistrict.active,
-              deaths: singleDistrict.deceased,
-              recovered: singleDistrict.recovered,
-            })
-          })
-        });
-        return this.setState({ data: statedata});
-      })
-      .catch(console.log)
-    }
-
-  }
+  countrySpecificData(trans) {
+    fetch(trans.url)
+    .then(res => res.json())
+    .then((rawData) => {
+      return this.setState({ data: trans.fn(rawData) });
+    })
+    .catch(console.log)
+  } 
 
   render() {
     const data = this.state.data;

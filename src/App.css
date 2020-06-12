@@ -275,3 +275,15 @@ html, body {
 .carousel-caption{
   margin: auto;
 }
+
+.compareLink a{
+  text-decoration: none;
+  margin: 2px;
+  padding: 2px;
+  color: #0c0d0d;
+  vertical-align: middle;
+  line-height:30px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+}

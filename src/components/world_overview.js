@@ -237,7 +237,7 @@ class WorldOverview extends Component {
         />  
 
         <Row float="left" className="worldControlPane">  
-          <Col>
+          <Col xs={4}>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text id="basic-addon1" >Filter</InputGroup.Text>
@@ -250,8 +250,13 @@ class WorldOverview extends Component {
             />
           </InputGroup>
           </Col>
-          <Col>
+          <Col xs={2} >
             <Button variant="primary" onClick={this.compare.bind(this)}>Compare</Button>
+            </Col>
+            <Col xs={6}>
+              <span>e.g.,</span>
+              <span className="compareLink"><a href="/corona/compare?countries=MX,CL">Mexico,Chile</a></span>
+              <span className="compareLink"><a href="/corona/compare?countries=IN,IT,ES">India,Italy,Spain</a></span>
             </Col>
           </Row>
           <Row className="textAll">

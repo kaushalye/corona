@@ -78,7 +78,6 @@ class CompareView extends Component {
               <Container align="left">
               {this.state.countries.map(c => {
                 const imgSrc= StringUtil.flagImg(c.iso2);
-                console.log(imgSrc);
                 return (
                   <Image src={imgSrc} className="flagImg" /> 
                 );
