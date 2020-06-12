@@ -89,7 +89,7 @@ class App extends Component {
           <Route path="/corona/compare" component={CompareView} />
           <Route path="/corona/country/:id" render={({match}) => (
                        <CountryOverview 
-                       iso2={match.params.id}
+                       iso2={match.params.id.toUpperCase()}
                        countries={this.state.countries.filter(c => c.countryInfo.iso2 === match.params.id)} 
                        />
               )}/>

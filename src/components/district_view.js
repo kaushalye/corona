@@ -26,6 +26,8 @@ class DistrictView extends Component {
   }
 
   countrySpecificData(trans) {
+    if (!trans) return;
+    
     fetch(trans.url)
     .then(res => res.json())
     .then((rawData) => {
