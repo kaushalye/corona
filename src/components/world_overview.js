@@ -44,6 +44,17 @@ class WorldOverview extends Component {
     this.setMode = this.setMode.bind(this);
     this.setSortBy = this.setSortBy.bind(this);//
     this.renderTable = this.renderTable.bind(this);
+    this.getPosComparedToYesterday = this.getPosComparedToYesterday.bind(this);
+  }
+
+  getPosComparedToYesterday(iso2) {
+    const checkIso2 = (country) => {
+      return country.countryInfo.iso2 === iso2;
+    }
+    const todayIndex = this.props.countries.findIndex(checkIso2);
+    const ydayIndex = this.props.yesterdayCountries.findIndex(checkIso2);
+    
+    return parseInt(ydayIndex) - parseInt(todayIndex);
   }
 
   setSortBy(e) {
@@ -147,6 +158,7 @@ class WorldOverview extends Component {
   }
 
   renderTable(filteredCountries) {
+    
     return (
       <table class="table table-striped worldTable">
               <thead>
@@ -167,15 +179,19 @@ class WorldOverview extends Component {
               </thead>
               <tbody>
               {filteredCountries.map((c, i) => {
+                      const gap = this.getPosComparedToYesterday(c.countryInfo.iso2);
+                      
                       return (
                         <tr>
                         <th scope="row" className="rank">{i+1}</th>
                         <td className="countryId">
                           <span className="worldLink">
                             <a href={"/corona/country/"+c.countryInfo.iso2}>
-                              <Image src={c.countryInfo.flag} className="flagImg"/>&nbsp;{c.country}
+                              <Image src={c.countryInfo.flag} className="flagImg"/>&nbsp;{c.country}&nbsp;
                             </a>
                           </span>
+                          { gap > 0 && <span className="gapUp">&#9650;{Math.abs(gap)}</span> }
+                          { gap < 0 && <span className="gapDown">&#9660;{Math.abs(gap)}</span> }
                         </td>
                         { this.state.mode === modes.ALL && 
                         <>

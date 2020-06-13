@@ -287,3 +287,12 @@ html, body {
   border-width: 1px;
   border-style: solid;
 }
+.gapUp{
+  color: red;
+  font-size: xx-small;
+}
+
+.gapDown{
+  color: green;
+  font-size: xx-small;
+}

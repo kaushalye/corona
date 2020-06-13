@@ -17,18 +17,30 @@ class App extends Component {
 
   state = {
     countries: [],
+    yesterdayCountries: [],
     freqCountries: [],
     regions: [],
   }
 
   componentDidMount() {
-    // Get data
-    fetch( 'https://corona.lmao.ninja/v2/countries?sort=country')
+    // Get today data
+    fetch( 'https://corona.lmao.ninja/v2/countries?sort=cases')
     .then(res => res.json())
     .then((data) => {
       localStorage.setItem('world-c19', JSON.stringify(data));
       this.setState({ 
         countries: data,
+      });
+    })
+    .catch(console.log)
+
+    // Get yesterday data
+    fetch( 'https://corona.lmao.ninja/v2/countries?sort=cases&yesterday=true')
+    .then(res => res.json())
+    .then((data) => {
+      localStorage.setItem('world-c19-yesterday', JSON.stringify(data));
+      this.setState({ 
+        yesterdayCountries: data,
       });
     })
     .catch(console.log)
@@ -81,7 +93,7 @@ class App extends Component {
 
       <Switch>
           <Route path="/corona/world">
-            <WorldOverview countries={this.state.countries} />
+            <WorldOverview countries={this.state.countries} yesterdayCountries={this.state.yesterdayCountries}/>
           </Route>
           {/* <Route path="/corona/compare">
             <CompareView/>
