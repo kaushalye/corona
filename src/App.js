@@ -4,6 +4,7 @@ import CountryOverview from './components/country_overview';
 import { Container, Nav, Navbar, Image} from 'react-bootstrap';
 import WorldOverview from './components/world_overview'
 import CompareView from './components/compare_view';
+import WorldMap from './components/world_map';
 import StringUtil from './lib/string_util';
 
 import {
@@ -94,6 +95,9 @@ class App extends Component {
       <Switch>
           <Route path="/corona/world">
             <WorldOverview countries={this.state.countries} yesterdayCountries={this.state.yesterdayCountries}/>
+          </Route>
+          <Route path="/corona/map">
+            <WorldMap countries={this.state.countries} yesterdayCountries={this.state.yesterdayCountries}/>
           </Route>
           {/* <Route path="/corona/compare">
             <CompareView/>

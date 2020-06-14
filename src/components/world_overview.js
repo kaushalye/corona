@@ -250,8 +250,7 @@ class WorldOverview extends Component {
             confirmed={allData.cases}
             deaths={allData.deaths}
             recovered={allData.recovered}
-        />  
-
+        /> 
         <Row float="left" className="worldControlPane">  
           <Col xs={4}>
           <InputGroup className="mb-3">

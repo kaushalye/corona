@@ -201,7 +201,7 @@ html, body {
 .todayStats {
   display: block;
   text-align: right!important;
-  color: red;
+  color: red!important;
   font-size: 0.8em;
   padding: 0;
   
