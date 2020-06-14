@@ -177,6 +177,16 @@ class WorldOverview extends Component {
                     <th scope="col" value="tests" onClick={this.setSortBy.bind(this)}>Tests</th>
                     </>
                   }
+                  { this.state.mode === modes.PERMILLION && 
+                    <>
+                    <th scope="col" value="cases" onClick={this.setSortBy.bind(this)}>Cases</th>
+                    <th scope="col" value="deaths" onClick={this.setSortBy.bind(this)}>Deaths</th>
+                    <th scope="col" value="active" onClick={this.setSortBy.bind(this)}>Active</th>
+                    <th scope="col" value="recovered" onClick={this.setSortBy.bind(this)}>Recovered</th>
+                    <th scope="col" value="critical" onClick={this.setSortBy.bind(this)}>Critical</th>
+                    <th scope="col" value="tests" onClick={this.setSortBy.bind(this)}>Tests</th>
+                    </>
+                  }
                 </tr>
               </thead>
               <tbody>
