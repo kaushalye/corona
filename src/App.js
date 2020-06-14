@@ -76,10 +76,16 @@ class App extends Component {
             <span className="pageTitle" >COVID-19 statistics</span>
           </Nav.Link>
         </Nav>
+        {/* <Nav className="mr-auto">
+          <Nav.Link href="/corona/map/"  className="justify-content-end">      
+            <Image title="Map View" src="/world_icon.png"></Image>
+          </Nav.Link>
+        </Nav> */}
         <Nav>
           <Nav.Item className="justify-content-end">  
             <Container className="recentyAccessed">
-              {this.state.freqCountries.slice(0, 5).reverse().map(fc => {
+             
+              {this.state.freqCountries.reverse().slice(0, 3).map(fc => {
                 const imgSrc = StringUtil.flagImg(fc);//`https://corona.lmao.ninja/assets/img/flags/${c.iso2.toLowerCase()}.png`;
                 return (
                   <a href={`/corona/country/${fc}`}><Image src={imgSrc}></Image></a>

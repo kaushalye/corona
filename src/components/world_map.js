@@ -12,37 +12,37 @@ class WorldMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colorKey: 'cases',
+      sortKey: this.props.sortKey || 'cases',
     };
     this.toMapData = this.toMapData.bind(this);
   }
 
   toMapData(countries, limit) {
-    console.log('countries');
-    console.log(countries);
-    const data = [];
-
-    countries.forEach(c => {
-      const elem = {
+    return countries.map(c => {
+      return {
         code: c.countryInfo.iso2,
-        value: c[this.state.colorKey],
+        value: c[this.state.sortKey],
         elem: c,
       };
-
-      data.push(elem);
     });
-
-    return data;
   }
-
+  // For some reason the map becomes black
+  // componentDidUpdate() {
+  //   console.log('>>> componentDidUpdate map with '+ this.props.sortKey);
+  //   if (this.state.sortKey === this.props.sortKey) {
+  //     return
+  //   }
+  //   this.setState({
+  //     sortKey: this.props.sortKey,
+  //   });
+  // }
   render() {
+
     if (typeof window !== "undefined") {
       window.proj4 = window.proj4 || proj4;
     }
 
     const data = this.toMapData(this.props.countries);
-    console.log('data');
-    console.log(data);
 
     const mapOptions = {
       chart: {
@@ -53,7 +53,8 @@ class WorldMap extends Component {
         allowNegativeLog: true,
       },
       title: {
-        text: this.state.colorKey.toUpperCase(),
+        text: this.state.sortKey.toUpperCase(),
+        style: { color: "#333333", fontSize: "10px" },
       },
 
       credits: {
@@ -76,7 +77,7 @@ class WorldMap extends Component {
           joinBy: ['iso-a2', 'code'],
           colorKey: 'value',
           dataLabels: {
-            enabled: true,
+            enabled: false,
 
             color: 'orange',
             format: "{point.elem.country}",
@@ -88,7 +89,8 @@ class WorldMap extends Component {
           mapData: mapdata,
           tooltip: {
             headerFormat: '',
-            pointFormat: `<i>{point.elem.country}</i>
+            pointFormat: `‣<i>{point.elem.country}</i>
+              <br/>-----------
               <br/> <b>Cases</b>:{point.elem.cases} <span class="todayStats">(+{point.elem.todayCases})</span>
               <br/> <b>Deaths</b>:{point.elem.deaths}
               <br/> <b>Critical</b>:{point.elem.critical}

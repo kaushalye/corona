@@ -12,10 +12,11 @@ import { InputGroup,
   Button,
   Image} from 'react-bootstrap';
 import StatsHeader from './stats_header';
+import WorldMap from './world_map';
 import StringUtil from '../lib/string_util';
 import queryString from 'query-string';
 
-const DEFAULT_FILTER = "usa, italy";
+const DEFAULT_FILTER = "usa, brazil";
 
 const modes = {
   ALL: 'all',
@@ -58,6 +59,7 @@ class WorldOverview extends Component {
   }
 
   setSortBy(e) {
+    console.log('set state sortBy '+e.target.getAttribute('value'));
     this.setState({
       sortBy: e.target.getAttribute('value'),
       sortOrder: -this.state.sortOrder,
@@ -240,6 +242,7 @@ class WorldOverview extends Component {
 
     const filteredCountries = this.filterAndSort(this.props.countries);
     const allData = this.state.soFar;
+    console.log(`render world view ${this.state.sortBy}`);
     return (
       <Container>
         <StatsHeader 
@@ -251,6 +254,8 @@ class WorldOverview extends Component {
             deaths={allData.deaths}
             recovered={allData.recovered}
         /> 
+        <WorldMap countries={this.props.countries} sortKey={this.state.sortBy}/>
+          
         <Row float="left" className="worldControlPane">  
           <Col xs={4}>
           <InputGroup className="mb-3">
@@ -279,8 +284,8 @@ class WorldOverview extends Component {
             <span className="helpText"> Select a country to see details.</span >
             <span className="helpText">{modeDetailsConfig[this.state.mode || modes.ALL]}</span >  
           </Col>
-          <Col xs={5} align="right">      
-            
+          <Col xs={5} align="right">
+          {/* <a href={`/corona/map/`}><Image title="Map View" src="/world_icon.png"></Image></a> */}
             <ToggleButtonGroup aria-label="Mode" type="radio"  size="sm" name="mode" onClick={this.modeChanged.bind(this)}>
               <ToggleButton value={modes.ALL} variant="light">All</ToggleButton>
               <ToggleButton value={modes.PERMILLION} variant="light">/Million</ToggleButton>
