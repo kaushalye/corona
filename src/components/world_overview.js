@@ -285,8 +285,8 @@ class WorldOverview extends Component {
             </Col>
             <Col xs={6}>
               <span>e.g.,</span>
-              <span className="compareLink"><a href="/corona/compare?countries=MX,CL">Mexico,Chile</a></span>
-              <span className="compareLink"><a href="/corona/compare?countries=IN,IT,ES">India,Italy,Spain</a></span>
+              <span className="compareLink"><a href="/corona/compare?countries=MX,CL">Mexico v Chile</a></span>
+              <span className="compareLink"><a href="/corona/compare?countries=IN,IT,ES">India v Italy v Spain</a></span>
             </Col>
           </Row>
           <Row className="textAll">

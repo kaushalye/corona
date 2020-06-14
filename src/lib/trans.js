@@ -11,6 +11,18 @@ class Trans {
     }
   }
 
+  nz = {
+    url: 'https://disease.sh/v2/gov/NZ',
+    fn: (data) => {
+      return data.provinces.filter(p => p.province !== 'Total').map(p => ({
+        name: `${p.province}`,
+        cases: parseInt(p.cases || "0"),
+        deaths: parseInt(p.deaths || "0"),
+        recovered: parseInt(p.recovered || "0"),
+      }));
+    }
+  }
+
   $in = {
     url: 'https://api.covid19india.org/state_district_wise.json',
     fn: (data) => {
