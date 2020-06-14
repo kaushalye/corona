@@ -5,6 +5,7 @@ import HighchartsReact from "highcharts-react-official";
 import highchartsMap from "highcharts/modules/map";
 import mapdata from "@highcharts/map-collection/custom/world-robinson-highres.geo.json";
 import proj4 from "proj4";
+import StringUtil from '../lib/string_util';
 
 highchartsMap(Highcharts);
 
@@ -55,9 +56,12 @@ class WorldMap extends Component {
       colorAxis: {
         type: 'logarithmic',
         allowNegativeLog: true,
+        maxColor:'#ff0000',
+        minColor: '#fff899',
+
       },
       title: {
-        text: this.state.sortKey.toUpperCase(),
+        text:StringUtil.capitalizeFirstLetter(this.state.sortKey),
         style: { color: "#333333", fontSize: "10px" },
       },
 

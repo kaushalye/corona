@@ -45,6 +45,7 @@ class WorldOverview extends Component {
     this.setMode = this.setMode.bind(this);
     this.setSortBy = this.setSortBy.bind(this);//
     this.renderTable = this.renderTable.bind(this);
+   // this.renderTableHead = this.renderTableHead.bind(this);
     this.getPosComparedToYesterday = this.getPosComparedToYesterday.bind(this);
   }
 
@@ -159,34 +160,30 @@ class WorldOverview extends Component {
     return filtered.sort(comparison);
   }
 
+  // renderTableHead(col) {
+  //   return (
+  //     <th scope="col" value={col} onClick={this.setSortBy.bind(this)}>{col}</th>
+  //   );
+  // }
+
   renderTable(filteredCountries) {
-    
+    const headers = ['cases','deaths', 'active','recovered', 'critical', 'tests'];
     return (
       <table class="table table-striped worldTable">
               <thead>
               <tr>
                   <th scope="col"  className="rank">#</th>
                   <th scope="col" className="countryId" onClick={this.setSortBy.bind(this)}>Country</th>
-                  { this.state.mode === modes.ALL && 
-                    <>
-                    <th scope="col" value="cases" onClick={this.setSortBy.bind(this)}>Cases</th>
-                    <th scope="col" value="deaths" onClick={this.setSortBy.bind(this)}>Deaths</th>
-                    <th scope="col" value="active" onClick={this.setSortBy.bind(this)}>Active</th>
-                    <th scope="col" value="recovered" onClick={this.setSortBy.bind(this)}>Recovered</th>
-                    <th scope="col" value="critical" onClick={this.setSortBy.bind(this)}>Critical</th>
-                    <th scope="col" value="tests" onClick={this.setSortBy.bind(this)}>Tests</th>
-                    </>
-                  }
-                  { this.state.mode === modes.PERMILLION && 
-                    <>
-                    <th scope="col" value="cases" onClick={this.setSortBy.bind(this)}>Cases</th>
-                    <th scope="col" value="deaths" onClick={this.setSortBy.bind(this)}>Deaths</th>
-                    <th scope="col" value="active" onClick={this.setSortBy.bind(this)}>Active</th>
-                    <th scope="col" value="recovered" onClick={this.setSortBy.bind(this)}>Recovered</th>
-                    <th scope="col" value="critical" onClick={this.setSortBy.bind(this)}>Critical</th>
-                    <th scope="col" value="tests" onClick={this.setSortBy.bind(this)}>Tests</th>
-                    </>
-                  }
+                  {headers.map(header => {
+
+                    return (
+                      <th scope="col" value={header} onClick={this.setSortBy.bind(this)}>
+                        {StringUtil.capitalizeFirstLetter(header)}
+                        { this.state.sortBy === header && this.state.sortOrder===1 && <span>&#9650;</span> }
+                        { this.state.sortBy === header && this.state.sortOrder===-1 && <span>&#9660;</span> }
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
               <tbody>

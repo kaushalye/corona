@@ -1,5 +1,11 @@
 const LS_KEY_FREQ = 'freq';
 class StringUtil {
+  static capitalizeFirstLetter(word) {
+    if(!word) {
+      return word;
+    }
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
 
   static formatNumber(num) {
     if (!num) {
