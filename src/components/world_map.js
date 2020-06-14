@@ -15,9 +15,13 @@ class WorldMap extends Component {
       sortKey: this.props.sortKey || 'cases',
     };
     this.toMapData = this.toMapData.bind(this);
+    this.navigate = this.navigate.bind(this);
+  }
+  navigate(e) {
+    window.location = "/corona/country/"+e.point.code;
   }
 
-  toMapData(countries, limit) {
+  toMapData(countries) {
     return countries.map(c => {
       return {
         code: c.countryInfo.iso2,
@@ -66,7 +70,9 @@ class WorldMap extends Component {
       legend: {
         layout: 'vertical',
         borderWidth: 0,
-        backgroundColor: 'rgba(255,255,255,0.85)',
+        padding: 0,
+        symbolPadding:0,
+        //backgroundColor: 'rgba(255,255,255,0.85)',
         floating: true,
         verticalAlign: 'bottom',
         align:'left',
@@ -114,6 +120,9 @@ class WorldMap extends Component {
         },{
           type: 'map',
           data: data,
+          events: {
+            click: this.navigate,
+          },
         }]
     }
 
