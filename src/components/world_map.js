@@ -47,7 +47,7 @@ class WorldMap extends Component {
     }
 
     const data = this.toMapData(this.props.countries);
-
+    // console.log(JSON.stringify(data[0]));
     const mapOptions = {
       chart: {
         map: 'custom/world'
@@ -117,13 +117,15 @@ class WorldMap extends Component {
           borderColor: "#A0A0A0",
           nullColor: "rgba(200, 200, 200, 0.3)",
           showInLegend: false,
-        },{
+        },
+        {
           type: 'map',
           data: data,
           events: {
             click: this.navigate,
           },
-        }]
+        },
+      ]
     }
 
     return (

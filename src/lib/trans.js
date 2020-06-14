@@ -23,6 +23,19 @@ class Trans {
     }
   }
 
+  vn = {
+    url: 'https://disease.sh/v2/gov/VN',
+    fn: (data) => {
+      return data.filter(p => p.city !== 'Total').map(p => ({
+        name: `${p.city}`,
+        cases: parseInt(p.cases || "0"),
+        deaths: parseInt(p.deaths || "0"),
+        recovered: parseInt(p.recovered || "0"),
+      }));
+    }
+  }
+
+
   $in = {
     url: 'https://api.covid19india.org/state_district_wise.json',
     fn: (data) => {
